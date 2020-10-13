@@ -3,6 +3,7 @@ export const LOADING_ERROR = "LOADING_ERROR";
 export const LOADING_IN_PROGRESS = "LOADING_IN_PROGRESS";
 export const CLEAR_PRODUCTS = "CLEAR_PRODUCTS";
 export const LOADING_SUCCESS = "LOADING_SUCCESS";
+
 export const FILTER_BY_PRICE = "FILTER_BY_PRICE";
 export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY";
 export const GET_HISTORY = "GET_HISTORY";
@@ -25,22 +26,28 @@ export const clearProducts = () => ({
   type: CLEAR_PRODUCTS
 });
 
-export const getNews = () => {
-  const url = `https://api.canillitapp.com/latest/${today}`;
-  return doFetch(url);
+export const headers = {
+  "Content-Type": "application/json",
+   Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjdmNjZhZjJiNjU3MDAwMWZjZTZjNDciLCJpYXQiOjE2MDIxODQ4Nzl9.d9Fo9paYF9kCpospKG7pglidFsMAXy5BUl6odcuB78o"
+}
+
+export const getProducts = () => {
+  const url = "https://coding-challenge-api.aerolab.co/products";
+  return fetchProducts(url);
 };
 
-export const getNewsByCategory = (categoryId) => {
-  const url = `https://api.canillitapp.com/news/category/${categoryId}`;
-  return doFetch(url);
-};
+// export const addPoints = () => {
+//   const url = "https://coding-challenge-api.aerolab.co/user/points";
+//   return postPoints(url);
+// }
 
-export const searchByWord = (pathname) => {
-  const url = `https://api.canillitapp.com/${pathname}`;
-  return doFetch(url);
-};
+// export const getUser = () => {
+//   const url = "https://coding-challenge-api.aerolab.co/user/me";
+//   return fetchUser(url);
+// }
 
-export const doFetch = (url) => {
+
+export const fetchProducts = (url) => {
   return (dispatch) => {
     dispatch(clearProducts());
 
@@ -48,7 +55,7 @@ export const doFetch = (url) => {
 
     dispatch(loadingInProgress(true));
 
-    fetch(url)
+    fetch(url, headers)
       .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -59,15 +66,15 @@ export const doFetch = (url) => {
         return response;
       })
       .then((response) => response.json())
-      .then((news) => {
-        const newsFiltered = news.slice(0, 30);
-        dispatch(loadingSuccess(newsFiltered));
+      .then((products) => {
+        const productsFiltered = products.slice(0, 30);
+        dispatch(loadingSuccess(productsFiltered));
       })
       .catch(() => dispatch(loadingError(true)));
   };
 };
 
-export const loadingSuccess = (news) => ({
+export const loadingSuccess = (products) => ({
   type: LOADING_SUCCESS,
-  news
+  products
 });
