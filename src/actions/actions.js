@@ -1,15 +1,12 @@
-import { today } from "../scripts/data";
 export const LOADING_ERROR = "LOADING_ERROR";
 export const LOADING_IN_PROGRESS = "LOADING_IN_PROGRESS";
 export const CLEAR_PRODUCTS = "CLEAR_PRODUCTS";
 export const LOADING_SUCCESS = "LOADING_SUCCESS";
 
-export const FILTER_BY_PRICE = "FILTER_BY_PRICE";
-export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY";
-export const GET_HISTORY = "GET_HISTORY";
-export const ADD_POINTS = "ADD_POINTS";
-export const EXCHANGE = "EXCHANGE";
-export const GET_PRODUCTS = "GET_PRODUCTS";
+export const USER_LOADING_SUCCESS = "USER_LOADING_SUCCESS"
+export const HISTORY_LOADING_SUCCESS = "HISTORY_LOADING_SUCCESS";
+export const ADD_POINTS_SUCCESS = "ADD_POINTS_SUCCESS";
+export const EXCHANGE_SUCCESS = "EXCHANGE_SUCCESS";
 
 
 export const loadingError = (bool) => ({
@@ -31,21 +28,12 @@ export const headers = {
    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjdmNjZhZjJiNjU3MDAwMWZjZTZjNDciLCJpYXQiOjE2MDIxODQ4Nzl9.d9Fo9paYF9kCpospKG7pglidFsMAXy5BUl6odcuB78o"
 }
 
+/********************************************************** Products *********************************************************/
+
 export const getProducts = () => {
   const url = "https://coding-challenge-api.aerolab.co/products";
   return fetchProducts(url);
 };
-
-// export const addPoints = () => {
-//   const url = "https://coding-challenge-api.aerolab.co/user/points";
-//   return postPoints(url);
-// }
-
-// export const getUser = () => {
-//   const url = "https://coding-challenge-api.aerolab.co/user/me";
-//   return fetchUser(url);
-// }
-
 
 export const fetchProducts = (url) => {
   return (dispatch) => {
@@ -67,7 +55,7 @@ export const fetchProducts = (url) => {
       })
       .then((response) => response.json())
       .then((products) => {
-        const productsFiltered = products.slice(0, 30);
+        const productsFiltered = products.slice(0, 32);
         dispatch(loadingSuccess(productsFiltered));
       })
       .catch(() => dispatch(loadingError(true)));
@@ -78,3 +66,175 @@ export const loadingSuccess = (products) => ({
   type: LOADING_SUCCESS,
   products
 });
+
+/********************************************************** User *************************************************************/
+
+export const getUser = () => {
+  const url = "https://coding-challenge-api.aerolab.co/user/me";
+  return fetchUser(url);
+}
+
+export const fetchUser = (url) => {
+  return (dispatch) => {
+
+    dispatch(loadingError(false));
+
+    dispatch(loadingInProgress(true));
+
+    fetch(url, headers)
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+
+        dispatch(loadingInProgress(false));
+
+        return response;
+      })
+      .then((response) => response.json())
+      .then((user) => {
+        dispatch(userLoadingSuccess(user));
+      })
+      .catch(() => dispatch(loadingError(true)));
+  };
+};
+
+export const userLoadingSuccess = (user) => ({
+  type: USER_LOADING_SUCCESS,
+  user
+});
+
+/******************************************************** History *************************************************************/
+
+export const getHistory = () => {
+  const url = "https://coding-challenge-api.aerolab.co/user/history";
+  return fetchHistory(url);
+};
+
+export const fetchHistory = (url) => {
+  return (dispatch) => {
+
+    dispatch(loadingError(false));
+
+    dispatch(loadingInProgress(true));
+
+    fetch(url, headers)
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+
+        dispatch(loadingInProgress(false));
+
+        return response;
+      })
+      .then((response) => response.json())
+      .then((history) => {
+        const historyFiltered = history.slice(0, 32);
+        dispatch(loadingHistorySuccess(historyFiltered));
+      })
+      .catch(() => dispatch(loadingError(true)));
+  };
+};
+
+export const loadingHistorySuccess = (history) => ({
+  type: HISTORY_LOADING_SUCCESS,
+  history
+});
+
+/******************************************************** Points *************************************************************/
+
+export const addPoints = (points) => {
+  const url = "https://coding-challenge-api.aerolab.co/user/points";
+  const data = {amount: points}
+  return postPoints(url, data);
+}
+
+export const postPoints = (url, data) => {
+  return (dispatch) => {
+
+    dispatch(loadingError(false));
+
+    dispatch(loadingInProgress(true));
+
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        ...headers
+      }})
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+
+        dispatch(loadingInProgress(false));
+
+        return response;
+      })
+      .then((response) => response.json())
+      .then((points) => {
+        dispatch(addPointsSuccess(points));
+      })
+      .catch(() => dispatch(loadingError(true)));
+  };
+};
+
+// {
+//   "message": "Points Updated",
+//   "new Points": 2000
+// }
+
+export const addPointsSuccess = (points) => ({
+  type: ADD_POINTS_SUCCESS,
+  points
+});
+
+/******************************************************** Redeem *************************************************************/
+
+export const exchange = (product) => {
+  const url = "https://coding-challenge-api.aerolab.co/redeem";
+  const data = {productId: product._id}
+  return postExchange(url, data);
+}
+
+export const postExchange = (url, data) => {
+  return (dispatch) => {
+
+    dispatch(loadingError(false));
+
+    dispatch(loadingInProgress(true));
+
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        ...headers
+      }})
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+
+        dispatch(loadingInProgress(false));
+
+        return response;
+      })
+      .then((response) => response.json())
+      .then((result) => {
+        dispatch(exchangeSuccess(result));
+      })
+      .catch(() => dispatch(loadingError(true)));
+  };
+};
+
+// {
+//   "message": "You've redeem the product successfully"
+// }
+
+export const exchangeSuccess = (result) => ({
+  type: EXCHANGE_SUCCESS,
+  result
+});
+
+

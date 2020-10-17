@@ -1,6 +1,8 @@
 import React from 'react';
+import { BrowserRouter } from "react-router-dom";
 import './App.css';
 
+import Main from "./Main";
 
 // 0. Identificar y crear el estado inicial
 // 1. Identificar y crear las acciones
@@ -9,13 +11,14 @@ import './App.css';
 // 4. Conectar y/o refactorizar los componentes
 // 5. Englobar la aplicacion con el provider
 
-
-function App() {
-  return (
-    <div className="App">
-      
-    </div>
-  );
-}
+const App = () => (
+  <div className="App">
+    {/* <React.StrictMode> */}
+    <BrowserRouter>
+      <Main />
+    </BrowserRouter>
+    {/* </React.StrictMode> */}
+  </div>
+);
 
 export default App;

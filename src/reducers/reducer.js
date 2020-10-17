@@ -3,18 +3,13 @@ import {
   LOADING_ERROR,
   LOADING_SUCCESS,
   LOADING_IN_PROGRESS,
-  CLEAR_NEWS,
-  SET_PAGE
+  CLEAR_PRODUCTS,
+  USER_LOADING_SUCCESS,
+  HISTORY_LOADING_SUCCESS,
+  ADD_POINTS_SUCCESS,
+  EXCHANGE_SUCCESS
 } from "../actions/actions";
 
-const setPage = (state = false, action) => {
-  switch (action.type) {
-    case SET_PAGE:
-      return action.page;
-    default:
-      return state;
-  }
-};
 
 const loadingError = (state = false, action) => {
   switch (action.type) {
@@ -34,12 +29,12 @@ const loadingInProgress = (state = false, action) => {
   }
 };
 
-const news = (state = [], action) => {
+const products = (state = [], action) => {
   switch (action.type) {
     case LOADING_SUCCESS:
-      return action.news;
+      return action.products;
 
-    case CLEAR_NEWS:
+    case CLEAR_PRODUCTS:
       return [];
 
     default:
@@ -47,9 +42,52 @@ const news = (state = [], action) => {
   }
 };
 
+const user = (state = [], action) => {
+  switch (action.type) {
+    case USER_LOADING_SUCCESS:
+      return action.user;
+
+    default:
+      return state;
+  }
+};
+
+const history = (state = [], action) => {
+  switch (action.type) {
+    case HISTORY_LOADING_SUCCESS:
+      return action.history;
+
+    default:
+      return state;
+  }
+};
+
+const points = (state = [], action) => {
+  switch (action.type) {
+    case ADD_POINTS_SUCCESS:
+      return action.points;
+
+    default:
+      return state;
+  }
+};
+
+const exchange = (state = [], action) => {
+  switch (action.type) {
+    case EXCHANGE_SUCCESS:
+      return action.result;
+
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
-  news,
+  products,
   loadingError,
   loadingInProgress,
-  setPage
+  user,
+  history,
+  points,
+  exchange
 });
