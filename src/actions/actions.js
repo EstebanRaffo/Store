@@ -25,7 +25,7 @@ export const clearProducts = () => ({
 
 export const headers = {
   "Content-Type": "application/json",
-   Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjdmNjZhZjJiNjU3MDAwMWZjZTZjNDciLCJpYXQiOjE2MDIxODQ4Nzl9.d9Fo9paYF9kCpospKG7pglidFsMAXy5BUl6odcuB78o"
+   "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjdmNjZhZjJiNjU3MDAwMWZjZTZjNDciLCJpYXQiOjE2MDIxODQ4Nzl9.d9Fo9paYF9kCpospKG7pglidFsMAXy5BUl6odcuB78o"
 }
 
 /********************************************************** Products *********************************************************/
@@ -43,7 +43,7 @@ export const fetchProducts = (url) => {
 
     dispatch(loadingInProgress(true));
 
-    fetch(url, headers)
+    fetch(url, {headers})
       .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -81,7 +81,7 @@ export const fetchUser = (url) => {
 
     dispatch(loadingInProgress(true));
 
-    fetch(url, headers)
+    fetch(url, {headers})
       .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -118,7 +118,7 @@ export const fetchHistory = (url) => {
 
     dispatch(loadingInProgress(true));
 
-    fetch(url, headers)
+    fetch(url, {headers})
       .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);
