@@ -1,7 +1,5 @@
 import React from 'react';
 import { BrowserRouter } from "react-router-dom";
-
-
 import Main from "./Main";
 
 // 0. Identificar y crear el estado inicial
