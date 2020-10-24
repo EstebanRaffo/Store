@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter } from "react-router-dom";
 import Main from "./Main";
 
+import AppProvider from "./ContextProvider";
+
 // 0. Identificar y crear el estado inicial
 // 1. Identificar y crear las acciones
 // 2. Construir el reducer
@@ -10,13 +12,15 @@ import Main from "./Main";
 // 5. Englobar la aplicacion con el provider
 
 const App = () => (
-  <div className="App">
-    {/* <React.StrictMode> */}
-    <BrowserRouter>
-      <Main />
-    </BrowserRouter>
-    {/* </React.StrictMode> */}
-  </div>
+  <AppProvider>
+    <div className="App">
+      {/* <React.StrictMode> */}
+      <BrowserRouter>
+        <Main />
+      </BrowserRouter>
+      {/* </React.StrictMode> */}
+    </div>
+  </AppProvider>
 );
 
 export default App;

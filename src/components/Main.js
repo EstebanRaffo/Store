@@ -5,21 +5,23 @@ import Banner from "./Banner";
 import Filters from "./Filters";
 import Sorter from "./Sorter";
 import Home from "./Home";
-import History from "./History";
+import AddPoints from "./AddPoints";
+
 
 
 const Main = () => {
   return (
-    <div>
-      <Header/>
-      <Banner/>
-      <Filters/>
-      <Sorter/>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/user/history" component={History} />
-      </Switch>
-    </div>
+    <>
+        <Header/>
+        <AddPoints/>
+
+        <Banner/>
+        <Filters/>
+        <Sorter/>
+        <Switch>
+          <Route exact path="/" component={Home} />
+        </Switch>
+    </>
   );
 };
 
