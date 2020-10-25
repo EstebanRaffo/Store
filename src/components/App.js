@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter } from "react-router-dom";
 import Main from "./Main";
+import AddPoints from "./AddPoints";
+
 
 import AppProvider from "./ContextProvider";
 
@@ -17,6 +19,7 @@ const App = () => (
       {/* <React.StrictMode> */}
       <BrowserRouter>
         <Main />
+        <AddPoints/>
       </BrowserRouter>
       {/* </React.StrictMode> */}
     </div>

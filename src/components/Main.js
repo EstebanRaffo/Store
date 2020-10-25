@@ -5,7 +5,6 @@ import Banner from "./Banner";
 import Filters from "./Filters";
 import Sorter from "./Sorter";
 import Home from "./Home";
-import AddPoints from "./AddPoints";
 
 
 
@@ -13,8 +12,6 @@ const Main = () => {
   return (
     <>
         <Header/>
-        <AddPoints/>
-
         <Banner/>
         <Filters/>
         <Sorter/>

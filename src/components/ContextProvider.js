@@ -6,15 +6,13 @@ export const AppContext = React.createContext();
 export default function AppProvider({ children }) {
 
   const [show, setShow] = useState(false);
-  const [points, setPoints] = useState(1000);
+  const [pointsSelected, setPoints] = useState(1000);
 
   return (
     <AppContext.Provider
       value={{
         show,
-        setShow,
-        points,
-        setPoints
+        setShow
       }}
     >
       {children}

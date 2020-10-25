@@ -25,7 +25,7 @@ export const clearProducts = () => ({
 
 export const headers = {
   "Content-Type": "application/json",
-   "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjdmNjZhZjJiNjU3MDAwMWZjZTZjNDciLCJpYXQiOjE2MDIxODQ4Nzl9.d9Fo9paYF9kCpospKG7pglidFsMAXy5BUl6odcuB78o"
+  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjdmNjZhZjJiNjU3MDAwMWZjZTZjNDciLCJpYXQiOjE2MDIxODQ4Nzl9.d9Fo9paYF9kCpospKG7pglidFsMAXy5BUl6odcuB78o"
 }
 
 /********************************************************** Products *********************************************************/
@@ -145,26 +145,35 @@ export const loadingHistorySuccess = (history) => ({
 /******************************************************** Points *************************************************************/
 
 export const addPoints = (points) => {
+  console.log("points en action addPoints", points)
   const url = "https://coding-challenge-api.aerolab.co/user/points";
-  const data = {amount: points}
-  return postPoints(url, data);
+  const data = {"amount": points}
+  const dataJson = JSON.stringify(data)
+  console.log("data: ", dataJson)
+  return postPoints(url, points);
 }
 
-export const postPoints = (url, data) => {
+export const postPoints = (url, points) => {
+  console.log("entro en postPoints")
   return (dispatch) => {
 
     dispatch(loadingError(false));
 
     dispatch(loadingInProgress(true));
 
-    fetch(url, {
+    fetch({
       method: 'POST',
-      body: JSON.stringify(data),
+      url: 'https://coding-challenge-api.aerolab.co/user/points',
       headers: {
-        ...headers
-      }})
+        "Content-Type": "application/json",
+        'Accept': 'application/json',
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjdmNjZhZjJiNjU3MDAwMWZjZTZjNDciLCJpYXQiOjE2MDIxODQ4Nzl9.d9Fo9paYF9kCpospKG7pglidFsMAXy5BUl6odcuB78o"
+      },
+      body: "{  \"amount\": 1000}"
+    })
       .then((response) => {
         if (!response.ok) {
+          console.log("response: ",response)
           throw Error(response.statusText);
         }
 
@@ -174,6 +183,7 @@ export const postPoints = (url, data) => {
       })
       .then((response) => response.json())
       .then((points) => {
+        console.log("points resultado: ", points)
         dispatch(addPointsSuccess(points));
       })
       .catch(() => dispatch(loadingError(true)));
