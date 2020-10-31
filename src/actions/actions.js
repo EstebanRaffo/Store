@@ -169,7 +169,7 @@ export const postPoints = (url, points) => {
         'Accept': 'application/json',
         "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjdmNjZhZjJiNjU3MDAwMWZjZTZjNDciLCJpYXQiOjE2MDIxODQ4Nzl9.d9Fo9paYF9kCpospKG7pglidFsMAXy5BUl6odcuB78o"
       },
-      body: "{  \"amount\": 1000}"
+      body: `{  amount: ${points}}`
     })
       .then((response) => {
         if (!response.ok) {
