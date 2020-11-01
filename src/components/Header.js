@@ -4,9 +4,7 @@ import { connect } from "react-redux";
 import History from "./History";
 import User from "../containers/User";
 import { getUser } from "../actions/actions";
-
 import { AppContext } from "./ContextProvider";
-
 
 const Header = ({getUser}) => {
   const { show, setShow } = useContext(AppContext);
@@ -15,7 +13,7 @@ const Header = ({getUser}) => {
   return (
     <div className="header">
 
-      <h3>Header</h3>
+      {/* <h3>Header</h3> */}
       <nav className="navbar">
         <div className="navbar-item">
           <Link to="/">Home</Link>

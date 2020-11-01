@@ -38,7 +38,7 @@
 
 .cerrar {
   position: relative;
-  /* border-top: 0; */
+  border-right: 0;
   font-size: 20px;
   padding: 10px;
   color: red;
@@ -60,7 +60,8 @@
   border: 2px solid #e8eae9;
 }
 
-.selected{
-  background: #86d993;
+input.largerCheckbox {
+  width: 30px;
+  height: 30px;
 }
   

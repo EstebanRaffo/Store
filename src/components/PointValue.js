@@ -1,18 +1,22 @@
-import React, { useState, useContext } from "react";
-import { AppContext } from "./ContextProvider";
+import React from "react";
 
 
-const PointValue = ({point, selected, syncup}) => {
-    // const [selected, setSelected] = useState(initial);
-    // const {pointsSelected, setPoints} = useContext(AppContext);
+const PointValue = ({point, checked, syncup}) => {
 
-    const handleClick = ({target: { value }}) => {
-        syncup(true, value)
+    const handleChange = ({target: { value }}) => {
+        syncup(true, +value)
     }
 
     return(
         <div>
-            <button type="button" className={selected ? "btn btn-success" : "btn"} onClick={handleClick} value={point}>{point}</button>
+            <input
+                className="largerCheckbox"
+                type="checkbox"
+                onChange={handleChange}
+                checked={checked}
+                value={point}
+                />
+            <label>{point}</label>
         </div>
     )
 }

@@ -104,6 +104,64 @@ export const userLoadingSuccess = (user) => ({
   user
 });
 
+
+/******************************************************** Points *************************************************************/
+
+export const addPoints = (points) => {
+  const url = "https://coding-challenge-api.aerolab.co/user/points";
+  const data = { amount: points }
+  return postPoints(url, data);
+}
+
+// export const headers = {
+//   "Content-Type": "application/json",
+//   "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjdmNjZhZjJiNjU3MDAwMWZjZTZjNDciLCJpYXQiOjE2MDIxODQ4Nzl9.d9Fo9paYF9kCpospKG7pglidFsMAXy5BUl6odcuB78o"
+// }
+
+export const postPoints = (url, data) => {
+  console.log("Entro en postPoints con: ", data)
+  return (dispatch) => {
+    console.log("Entro en (dispatch) => {}")
+    dispatch(loadingError(false));
+
+    dispatch(loadingInProgress(true));
+
+    fetch(url, {
+      // mode: 'no-cors',
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.log("response: ",response)
+          throw Error(response.statusText);
+        }
+
+        dispatch(loadingInProgress(false));
+
+        return response;
+      })
+      .then((response) => response.json())
+      .then((newPoints) => {
+        console.log("points resultado: ", newPoints);
+        dispatch(addPointsSuccess(newPoints));
+      })
+      .catch(() => dispatch(loadingError(true)));
+  };
+};
+
+// {
+//   "message": "Points Updated",
+//   "new Points": 2000
+// }
+
+export const addPointsSuccess = (points) => ({
+  type: ADD_POINTS_SUCCESS,
+  points
+});
+
+
 /******************************************************** History *************************************************************/
 
 export const getHistory = () => {
@@ -142,63 +200,6 @@ export const loadingHistorySuccess = (history) => ({
   history
 });
 
-/******************************************************** Points *************************************************************/
-
-export const addPoints = (points) => {
-  console.log("points en action addPoints", points)
-  const url = "https://coding-challenge-api.aerolab.co/user/points";
-  const data = {"amount": points}
-  const dataJson = JSON.stringify(data)
-  console.log("data: ", dataJson)
-  return postPoints(url, points);
-}
-
-export const postPoints = (url, points) => {
-  console.log("entro en postPoints")
-  return (dispatch) => {
-
-    dispatch(loadingError(false));
-
-    dispatch(loadingInProgress(true));
-
-    fetch({
-      method: 'POST',
-      url: 'https://coding-challenge-api.aerolab.co/user/points',
-      headers: {
-        "Content-Type": "application/json",
-        'Accept': 'application/json',
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjdmNjZhZjJiNjU3MDAwMWZjZTZjNDciLCJpYXQiOjE2MDIxODQ4Nzl9.d9Fo9paYF9kCpospKG7pglidFsMAXy5BUl6odcuB78o"
-      },
-      body: `{  amount: ${points}}`
-    })
-      .then((response) => {
-        if (!response.ok) {
-          console.log("response: ",response)
-          throw Error(response.statusText);
-        }
-
-        dispatch(loadingInProgress(false));
-
-        return response;
-      })
-      .then((response) => response.json())
-      .then((points) => {
-        console.log("points resultado: ", points)
-        dispatch(addPointsSuccess(points));
-      })
-      .catch(() => dispatch(loadingError(true)));
-  };
-};
-
-// {
-//   "message": "Points Updated",
-//   "new Points": 2000
-// }
-
-export const addPointsSuccess = (points) => ({
-  type: ADD_POINTS_SUCCESS,
-  points
-});
 
 /******************************************************** Redeem *************************************************************/
 
