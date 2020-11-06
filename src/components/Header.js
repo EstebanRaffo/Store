@@ -9,7 +9,11 @@ import { AppContext } from "./ContextProvider";
 const Header = ({getUser}) => {
   const { show, setShow } = useContext(AppContext);
 
-  getUser();
+  React.useEffect(() => {
+    console.count("Se ejecutó getUser()");
+    getUser();
+  });
+
   return (
     <div className="header">
 

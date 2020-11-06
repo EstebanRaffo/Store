@@ -2,57 +2,32 @@ import React, { useContext, useState } from "react";
 import { AppContext } from "./ContextProvider";
 import "../styles/AddPoints.css";
 import { addPoints } from "../actions/actions";
-import PointValue from "./PointValue";
 import {useDispatch} from "react-redux";
+import {ButtonGroup, ToggleButton} from 'react-bootstrap'; 
 
 const Modal = () => {
   const { show, setShow } = useContext(AppContext);
-  const [pointsSelected, setPoints] = useState(1000);
-
-  const [firstSelected, setFirst] = useState(true);
-  const [secondSelected, setSecond] = useState(false);
-  const [thirdSelected, setThird] = useState(false);
+  const [radioValue, setRadioValue] = useState("1000");
 
   const className = show ? "modal-content" : "modal-hidden";
   const background = show ? "modal-background" : "";
   
+  const radios = [
+    { name: '1000', value: '1000' },
+    { name: '5000', value: '5000' },
+    { name: '7500', value: '7500' },
+  ];
+
   const dispatch = useDispatch();
 
   const handleClose = () => {
     setShow(!show);
   };
 
-  const toggleSelected = (selected, point) => {
-    switch (point){
-      case 1000:
-        console.log("Entro en 1000");
-        setFirst(selected);
-        setSecond(!selected);
-        setThird(!selected);
-        setPoints(point);
-        break;
-      case 5000:
-        console.log("Entro en 5000");
-        setSecond(selected);
-        setFirst(!selected);
-        setThird(!selected);
-        setPoints(point);
-        break;
-      case 7500:
-        console.log("Entro en 7500");
-        setThird(selected);
-        setFirst(!selected);
-        setSecond(!selected);
-        setPoints(point);
-        break;
-      default:
-    }
-  }
-
   const sendPoints = () => {
-    console.log("pointsSelected enviados: ", pointsSelected)
+    console.log("pointsSelected enviados: ", radioValue)
     setShow(!show);
-    dispatch(addPoints(pointsSelected));
+    dispatch(addPoints(+radioValue));
   };
 
   return (
@@ -60,9 +35,23 @@ const Modal = () => {
         <div className="centered">
           <div className={className}>
             <span className="cerrar" onClick={handleClose}>X</span>
-            <PointValue point={1000} checked={firstSelected} syncup={toggleSelected}/>
-            <PointValue point={5000} checked={secondSelected} syncup={toggleSelected}/>
-            <PointValue point={7500} checked={thirdSelected} syncup={toggleSelected}/>
+            <h3>¿Cuántos puntos sumamos?</h3>
+            <ButtonGroup toggle>
+                {radios.map((radio, idx) => (
+                    <ToggleButton
+                        key={idx}
+                        type="radio"
+                        variant="secondary"
+                        name="radio"
+                        value={radio.value}
+                        checked={radioValue === radio.value}
+                        onChange={(e) => setRadioValue(e.currentTarget.value)}
+                    >
+                        {radio.name}
+                    </ToggleButton>
+                ))}
+            </ButtonGroup>
+
             <div>
               <button id="search" className="btn btn-outline-secondary" type="button" onClick={() => sendPoints()}>
                 sumar
