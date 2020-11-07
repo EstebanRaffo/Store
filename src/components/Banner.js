@@ -1,9 +1,10 @@
 import React from "react";
+import banner from "../images/banner2.jpg";
 
 const Banner = () => {
   return (
-    <div className="Banner">
-      <h1>Banner</h1>
+    <div className="banner">
+      <img src={banner} alt="banner" />
     </div>
   );
 };

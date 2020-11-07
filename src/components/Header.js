@@ -5,6 +5,8 @@ import History from "./History";
 import User from "../containers/User";
 import { getUser } from "../actions/actions";
 import { AppContext } from "./ContextProvider";
+import {Container, Row, Col} from "react-bootstrap"; 
+
 
 const Header = ({getUser}) => {
   const { show, setShow } = useContext(AppContext);
@@ -16,8 +18,33 @@ const Header = ({getUser}) => {
 
   return (
     <div className="header">
-
-      {/* <h3>Header</h3> */}
+      {/* <Container>
+        <Row>
+          <Col xs={6} md={4}>
+            xs=6 md=4
+          </Col>
+          <Col xs={6} md={4}>
+            xs=6 md=4
+          </Col>
+          <Col xs={6} md={4}>
+            xs=6 md=4
+          </Col>
+        </Row>
+      </Container> */}
+      {/* <Container>
+        <Row>
+          <Col lg={true}>Home</Col>
+          <Col lg={true}>History</Col>
+          <Col lg={true}>Add Points</Col>
+          <Col lg={true}>User</Col>
+        </Row>
+      </Container> */}
+      {/* <div className="row">
+        <div className="col">Home</div>
+        <div className="col">History</div>
+        <div className="col">Add Points</div>
+        <div className="col">User</div>
+      </div> */}
       <nav className="navbar">
         <div className="navbar-item">
           <Link to="/">Home</Link>
@@ -28,13 +55,15 @@ const Header = ({getUser}) => {
           </Link>
         </div>
       </nav>
+      
       <Switch>
         <Route path="/user/history" component={History} />
       </Switch>
-
-      <button className="action" onClick={() => setShow(!show)}>
-         Add Points
-      </button>
+      <div>
+        <button className="action" onClick={() => setShow(!show)}>
+          Add Points
+        </button>
+      </div>
       <User/>
                     
     </div>

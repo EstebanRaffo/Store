@@ -20,13 +20,22 @@ body {
   padding: 15px;
 }
 
+.home h1,
+h4 {
+  text-align: left;
+  color: rgb(7, 56, 48);
+}
+
+/************************************************ Header **********************************************************************/
 .header{
   display: flex;
   justify-content: space-between;
+  padding: 10px;
 }
 
 .navbar {
   display: flex;
+  justify-content: space-between;
 }
 
 .navbar-item {
@@ -39,4 +48,12 @@ body {
   background-color: rgba(100, 252, 189, 0.993);
   font-size: 19px;
   text-decoration: none;
+}
+
+
+/************************************************ Banner **********************************************************************/
+.banner{
+  background-color: #337bbeee;
+  padding: 2px;
+  width: 100%;
 }

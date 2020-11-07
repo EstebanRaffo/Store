@@ -1,14 +1,14 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "./ContextProvider";
 import "../styles/AddPoints.css";
-import { addPoints } from "../actions/actions";
+import { addPoints, getUser } from "../actions/actions";
 import {useDispatch} from "react-redux";
 import {ButtonGroup, ToggleButton} from 'react-bootstrap'; 
 
 const Modal = () => {
   const { show, setShow } = useContext(AppContext);
   const [radioValue, setRadioValue] = useState("1000");
-
+  console.log("points elegidos: ", radioValue)
   const className = show ? "modal-content" : "modal-hidden";
   const background = show ? "modal-background" : "";
   
@@ -28,6 +28,7 @@ const Modal = () => {
     console.log("pointsSelected enviados: ", radioValue)
     setShow(!show);
     dispatch(addPoints(+radioValue));
+    dispatch(getUser())
   };
 
   return (

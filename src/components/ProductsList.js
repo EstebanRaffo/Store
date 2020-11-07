@@ -4,13 +4,13 @@ import Product from "./Product";
 
 const ProductsList = ({ products, history, hasError, isLoading, match }) => {
 
-    console.log("products: ", products)
-    console.log("history: ", history)
+    // console.log("products: ", products)
+    // console.log("history: ", history)
   // este efecto se ejecuta cada vez que hay un cambio en toda la aplicación
   useEffect(() => {
-    console.count(
-      "Este efecto corre siempre que haya un cambio en toda la aplicación"
-    );
+    // console.count(
+    //   "Este efecto corre siempre que haya un cambio en toda la aplicación"
+    // );
 
     // const { categoryId: currentCategoryId } = match.params;
 
