@@ -1,11 +1,17 @@
 import React from "react";
+import FilterByName from "./FilterByName";
+import FilterByPrice from "./FilterByPrice";
+import FilterByCategory from "./FilterByCategory";
 
 const Filters = () => {
   return (
-    <div className="Filters">
-      <h1>Filters</h1>
+    <div className="filters">
+      <FilterByName/>
+      <FilterByPrice/>
+      <FilterByCategory/>
     </div>
   );
 };
 
 export default Filters;
+

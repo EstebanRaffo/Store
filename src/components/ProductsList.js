@@ -1,11 +1,20 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
+import { AppContext } from "../components/ContextProvider";
+
 import Product from "./Product";
 
 
 const ProductsList = ({ products, history, hasError, isLoading, match }) => {
 
-    // console.log("products: ", products)
-    // console.log("history: ", history)
+  const {searchTerm} = useContext(AppContext);
+  let productsFiltered = products;
+  
+  if(searchTerm){
+    productsFiltered = products.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  } 
+  console.log("products filtered: ", productsFiltered)
+  // console.log("history: ", history)
+
   // este efecto se ejecuta cada vez que hay un cambio en toda la aplicación
   useEffect(() => {
     // console.count(
