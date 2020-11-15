@@ -7,6 +7,7 @@ export default function AppProvider({ children }) {
 
   const [show, setShow] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [priceRange, setPriceRange] = useState([500, 1500])
 
   return (
     <AppContext.Provider
@@ -14,7 +15,9 @@ export default function AppProvider({ children }) {
         show,
         setShow,
         searchTerm,
-        setSearchTerm
+        setSearchTerm,
+        priceRange,
+        setPriceRange
       }}
     >
       {children}

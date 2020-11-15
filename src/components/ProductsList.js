@@ -6,17 +6,24 @@ import Product from "./Product";
 
 const ProductsList = ({ products, history, hasError, isLoading, match }) => {
 
-  const {searchTerm} = useContext(AppContext);
-  let productsFiltered = products;
+  const {searchTerm, priceRange} = useContext(AppContext);
+  const [productsFiltered, setProductFiltered] = useState(products)
   
-  if(searchTerm){
-    productsFiltered = products.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
-  } 
+  
+  useEffect(() => {
+    const filtered = products.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
+      
+    setProductFiltered(filtered);
+  }, [searchTerm, products]);
+  
   console.log("products filtered: ", productsFiltered)
+
+
+
   // console.log("history: ", history)
 
   // este efecto se ejecuta cada vez que hay un cambio en toda la aplicación
-  useEffect(() => {
+  //useEffect(() => {
     // console.count(
     //   "Este efecto corre siempre que haya un cambio en toda la aplicación"
     // );
@@ -26,7 +33,7 @@ const ProductsList = ({ products, history, hasError, isLoading, match }) => {
     // if (currentCategoryId !== prevProps.match.params.categoryId) {
     //   this.props.getproductsByCategory(currentCategoryId);
     // }
-  }); 
+  //}); 
     
 
 //   warning = () => {

@@ -2,7 +2,7 @@ import React from "react";
 
 const UserData = ({user, hasError, isLoading}) => {
   
-  console.log("user: ", user)
+  // console.log("user: ", user)
   
   if (hasError) {
     return (
