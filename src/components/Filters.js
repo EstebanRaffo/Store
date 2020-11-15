@@ -2,6 +2,7 @@ import React from "react";
 import FilterByName from "./FilterByName";
 import FilterByPrice from "./FilterByPrice";
 import FilterByCategory from "./FilterByCategory";
+import Sorter from "./Sorter";
 
 const Filters = () => {
   return (
@@ -9,6 +10,7 @@ const Filters = () => {
       <FilterByName/>
       <FilterByPrice/>
       <FilterByCategory/>
+      <Sorter/>
     </div>
   );
 };

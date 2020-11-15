@@ -1,22 +1,67 @@
-import React, {useState} from "react";
+import React, {useContext} from "react";
+import { connect } from "react-redux";
+import { AppContext } from "./ContextProvider";
 
-const FilterByCategory = () => {
-    const [filterCategory, setFilterCategory] = useState();
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
 
-    const handleChange = ({target: {value}}) => {
-        setFilterCategory(value);
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: 250,
+    "& > * + *": {
+      marginTop: theme.spacing(3)
+    }
+  }
+}));
+
+
+const FilterByCategory = ({products}) => {
+    const {searchCategory, setCategories} = useContext(AppContext);
+    const classes = useStyles();
+
+    let categories = [];
+
+    for(const product of products){
+      if(categories.indexOf(product.category) < 0){
+        categories.push(product.category)
+      }
+    }
+  
+    console.log("categories en FilterByCategory: ", categories)
+    console.log("categories elegidas: ", searchCategory)
+
+    const handleChange = (event, value) => {
+      setCategories(value);
     };
 
     return (
-      <div>
-        <label>Categoria</label>
-        <input
-            className="Items-searchTerm"
-            value={filterCategory}
-            onChange={handleChange}
-        />
-      </div>
+      <div className={classes.root}>
+      <Autocomplete
+        multiple
+        limitTags={2}
+        id="multiple-limit-tags"
+        options={categories}
+        getOptionLabel={(option) => option}
+        onChange={handleChange}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="outlined"
+            label="categorias"
+            placeholder="Favorites"
+          />
+        )}
+      />
+    </div>
     );
 };
-  
-  export default FilterByCategory;
+
+const mapStateToProps = (state) => {
+  return{
+    products: state.products
+  }
+}
+
+export default connect(mapStateToProps)(FilterByCategory);

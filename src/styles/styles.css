@@ -23,7 +23,7 @@ body {
 .home h1,
 h4 {
   text-align: left;
-  color: rgb(7, 56, 48);
+  color: white;
 }
 
 
@@ -31,12 +31,10 @@ h4 {
 .header{
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(31, 151, 221);
+  height: 80px;
+  padding: 20px;
 }
 
 .navbar-item {
@@ -54,7 +52,7 @@ h4 {
 
 /************************************************ Banner **********************************************************************/
 .banner{
-  background-color: #34b3e6ee;
+  background-color: rgb(31, 151, 221);
   padding: 2px;
   width: 100%;
 }
@@ -70,3 +68,4 @@ h4 {
   justify-content: space-around;
   padding: 15px;
 }
+

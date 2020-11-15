@@ -55,8 +55,8 @@ export const fetchProducts = (url) => {
       })
       .then((response) => response.json())
       .then((products) => {
-        const productsFiltered = products.slice(0, 32);
-        dispatch(loadingSuccess(productsFiltered));
+        const productsObtained = products.slice(0, 32);
+        dispatch(loadingSuccess(productsObtained));
       })
       .catch(() => dispatch(loadingError(true)));
   };
