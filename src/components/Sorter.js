@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import AppProvider, { AppContext } from "./ContextProvider";
+import { AppContext } from "./ContextProvider";
 
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';

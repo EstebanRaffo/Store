@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useContext} from "react";
+import React, {useState, useRef, useEffect, useContext} from "react";
 import { AppContext } from "../components/ContextProvider";
 
 import Product from "./Product";
@@ -8,11 +8,11 @@ const ProductsList = ({ products, history, hasError, isLoading, match }) => {
 
   const {searchTerm, priceRange, searchCategory, sort} = useContext(AppContext);
   let productsFiltered = useRef(null);
-  
+  const [productList, setProductList] = useState([]);
   
   useEffect(() => {
     productsFiltered.current = products;
-    console.log("products filtered antes del filtro: ", productsFiltered)
+    console.log("products filtered antes del filtro: ", productsFiltered.current)
 
     if(searchTerm){
       productsFiltered.current = productsFiltered.current.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -31,11 +31,11 @@ const ProductsList = ({ products, history, hasError, isLoading, match }) => {
         productsFiltered.current = productsFiltered.current.sort((b, a) => (a.cost > b.cost ? 1 : a.cost < b.cost ? -1 : 0))
       }
     }  
+    setProductList(productsFiltered.current)
     
   }, [searchTerm, priceRange, searchCategory, sort, products]);
-  
-  console.log("products filtered despues del filtro: ", productsFiltered)
-
+ 
+  console.log("products filtered despues del filtro: ", productsFiltered.current)
 
 
   // console.log("history: ", history)
@@ -54,15 +54,15 @@ const ProductsList = ({ products, history, hasError, isLoading, match }) => {
   //}); 
     
 
-//   warning = () => {
-//     return (
-//       <article className="message is-warning">
-//         <div className="message-body">
-//           No se han encontrado productos con los criterios definidos
-//         </div>
-//       </article>
-//     );
-//   };
+  const warning = () => {
+    return (
+      <article className="message is-warning">
+        <div className="message-body">
+          No se han encontrado productos con los criterios definidos
+        </div>
+      </article>
+    );
+  };
 
   if (hasError) {
       return (
@@ -82,20 +82,19 @@ const ProductsList = ({ products, history, hasError, isLoading, match }) => {
   
   return (
     <section className="section">
-      <div className="report-container">
-          <h3>Lista de Productos</h3>
-        {/* {products.length > 0
-          ? products.map((report, i) => (
+      {/* <h3>Lista de Productos</h3> */}
+      <div className="products-container">    
+        {productList.length > 0
+          ? productList.map((product, i) => (
               <Product
                 key={i}
-                title={report.title}
-                daily={report.source_name}
-                photo={report.img_url}
-                url={report.url}
-                category={report.category}
+                name={product.name}
+                price={product.cost}
+                photo={product.img.hdUrl}
+                category={product.category}
               />
             ))
-          : this.warning()} */}
+          : warning()}
       </div>
     </section>
   );

@@ -24,15 +24,10 @@ const Header = ({getUser}) => {
           Historial
         </Link>
       </div>
-    
       <Switch>
         <Route path="/user/history" component={History} />
       </Switch>
-      {/* <div>
-        <button className="action" onClick={() => setShow(!show)}>
-          Add Points
-        </button>
-      </div> */}
+      
       <ButtonAddPoints/>
       <User/>              
     </div>
