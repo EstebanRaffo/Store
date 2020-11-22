@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useContext} from "react";
 import IconExchange from "./IconExchange";
 import { exchange, getUser } from "../actions/actions";
 import {useDispatch} from "react-redux";
+import { AppContext } from "../components/ContextProvider";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -45,11 +46,12 @@ const useStyles = makeStyles((theme) => ({
 const Exchange = ({productId, name, price, category}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-
+    const {currentId, setCurrentId} = useContext(AppContext);
 
     const handleClick = () => {
         console.info('You clicked Comprar.');
         dispatch(exchange(productId));
+        setCurrentId("");
         dispatch(getUser());
     };
 

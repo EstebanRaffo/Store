@@ -16,17 +16,11 @@ export default function AppProvider({ children }) {
   return (
     <AppContext.Provider
       value={{
-        show,
-        setShow,
-        searchTerm,
-        setSearchTerm,
-        priceRange,
-        setPriceRange,
-        searchCategory,
-        setCategories,
-        sort,
-        setSort,
-        showBuy, setShowBuy,
+        show, setShow,
+        searchTerm, setSearchTerm,
+        priceRange, setPriceRange,
+        searchCategory, setCategories,
+        sort, setSort,
         currentId, setCurrentId
       }}
     >
