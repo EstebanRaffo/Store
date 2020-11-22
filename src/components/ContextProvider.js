@@ -10,6 +10,8 @@ export default function AppProvider({ children }) {
   const [priceRange, setPriceRange] = useState([50, 2500]);
   const [searchCategory, setCategories] = useState("");
   const [sort, setSort] = useState(0);
+  const [showBuy, setShowBuy] = useState(false);
+  const [currentId, setCurrentId] = useState("");
 
   return (
     <AppContext.Provider
@@ -23,7 +25,9 @@ export default function AppProvider({ children }) {
         searchCategory,
         setCategories,
         sort,
-        setSort
+        setSort,
+        showBuy, setShowBuy,
+        currentId, setCurrentId
       }}
     >
       {children}

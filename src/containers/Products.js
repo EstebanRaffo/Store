@@ -6,6 +6,7 @@ const mapStateToProps = (state, props) => {
 
   return {
     match: props.match,
+    user: state.user,
     products: state.products,
     history: state.history,
     hasError: state.loadingError,

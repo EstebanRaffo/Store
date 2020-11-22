@@ -8,7 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import IconBuy from "./IconBuy";
+import LackPoints from "./LackPoints";
+
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,34 +39,39 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const Product = ({ name, price, photo, category }) => {
+const Product = ({ productId, name, enabledPoints, price, photo, category }) => {
   const classes = useStyles();
-  
+
+  const sufficientBalance = () => {
+    return enabledPoints >= price;
+  }
+
+
   return (
     <Card className={classes.root}>
       <CardHeader
         avatar={
           <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
+            {sufficientBalance ? <IconBuy productId={productId} /> : <LackPoints delta={price - enabledPoints} />}
           </IconButton>
         }
       />
       <CardMedia
         className={classes.media}
         image={photo}
-        title="Paella dish"
+        title={name}
       />
       <Divider variant="middle" />
       <CardContent>
-        <Typography variant="subtitle2">
+        <Typography variant="subtitle2" color="primary">
           {category}
         </Typography>
-        <Typography variant="body2" color="primary" component="span" display="block">
-          {name} | $ {price}
+        <Typography variant="body2" component="span" display="block">
+          {name} | Puntos: {price}
         </Typography>
       </CardContent>
     </Card>
-    );
+  );
 };
 
 export default Product;

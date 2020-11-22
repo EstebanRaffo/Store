@@ -113,11 +113,6 @@ export const addPoints = (points) => {
   return postPoints(url, data);
 }
 
-// export const headers = {
-//   "Content-Type": "application/json",
-//   "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjdmNjZhZjJiNjU3MDAwMWZjZTZjNDciLCJpYXQiOjE2MDIxODQ4Nzl9.d9Fo9paYF9kCpospKG7pglidFsMAXy5BUl6odcuB78o"
-// }
-
 export const postPoints = (url, data) => {
   console.log("Entro en postPoints con: ", data)
   return (dispatch) => {
@@ -127,7 +122,6 @@ export const postPoints = (url, data) => {
     dispatch(loadingInProgress(true));
 
     fetch(url, {
-      // mode: 'no-cors',
       method: 'POST',
       body: JSON.stringify(data),
       headers
@@ -159,6 +153,54 @@ export const postPoints = (url, data) => {
 export const addPointsSuccess = (points) => ({
   type: ADD_POINTS_SUCCESS,
   points
+});
+
+
+/******************************************************** Exchange *************************************************************/
+
+export const exchange = (productId) => {
+  const url = "https://coding-challenge-api.aerolab.co/redeem";
+  const data = {productId: productId}
+  return postExchange(url, data);
+}
+
+export const postExchange = (url, data) => {
+  return (dispatch) => {
+
+    dispatch(loadingError(false));
+
+    dispatch(loadingInProgress(true));
+
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+
+        dispatch(loadingInProgress(false));
+
+        return response;
+      })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("exchange: ", result)
+        dispatch(exchangeSuccess(result));
+      })
+      .catch(() => dispatch(loadingError(true)));
+  };
+};
+
+// {
+//   "message": "You've redeem the product successfully"
+// }
+
+export const exchangeSuccess = (result) => ({
+  type: EXCHANGE_SUCCESS,
+  result
 });
 
 
@@ -199,53 +241,3 @@ export const loadingHistorySuccess = (history) => ({
   type: HISTORY_LOADING_SUCCESS,
   history
 });
-
-
-/******************************************************** Redeem *************************************************************/
-
-export const exchange = (product) => {
-  const url = "https://coding-challenge-api.aerolab.co/redeem";
-  const data = {productId: product._id}
-  return postExchange(url, data);
-}
-
-export const postExchange = (url, data) => {
-  return (dispatch) => {
-
-    dispatch(loadingError(false));
-
-    dispatch(loadingInProgress(true));
-
-    fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        ...headers
-      }})
-      .then((response) => {
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }
-
-        dispatch(loadingInProgress(false));
-
-        return response;
-      })
-      .then((response) => response.json())
-      .then((result) => {
-        dispatch(exchangeSuccess(result));
-      })
-      .catch(() => dispatch(loadingError(true)));
-  };
-};
-
-// {
-//   "message": "You've redeem the product successfully"
-// }
-
-export const exchangeSuccess = (result) => ({
-  type: EXCHANGE_SUCCESS,
-  result
-});
-
-

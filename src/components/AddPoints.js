@@ -28,7 +28,7 @@ const Modal = () => {
     console.log("pointsSelected enviados: ", radioValue)
     setShow(!show);
     dispatch(addPoints(+radioValue));
-    dispatch(getUser())
+    dispatch(getUser());
   };
 
   return (

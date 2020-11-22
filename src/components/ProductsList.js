@@ -2,11 +2,12 @@ import React, {useState, useRef, useEffect, useContext} from "react";
 import { AppContext } from "../components/ContextProvider";
 
 import Product from "./Product";
+import Exchange from "./Exchange";
 
 
-const ProductsList = ({ products, history, hasError, isLoading, match }) => {
+const ProductsList = ({ products, user, history, hasError, isLoading, match }) => {
 
-  const {searchTerm, priceRange, searchCategory, sort} = useContext(AppContext);
+  const {searchTerm, priceRange, searchCategory, sort, currentId} = useContext(AppContext);
   let productsFiltered = useRef(null);
   const [productList, setProductList] = useState([]);
   
@@ -36,7 +37,7 @@ const ProductsList = ({ products, history, hasError, isLoading, match }) => {
   }, [searchTerm, priceRange, searchCategory, sort, products]);
  
   console.log("products filtered despues del filtro: ", productsFiltered.current)
-
+  console.log("user: ", user)
 
   // console.log("history: ", history)
 
@@ -82,17 +83,28 @@ const ProductsList = ({ products, history, hasError, isLoading, match }) => {
   
   return (
     <section className="section">
-      {/* <h3>Lista de Productos</h3> */}
       <div className="products-container">    
         {productList.length > 0
           ? productList.map((product, i) => (
-              <Product
-                key={i}
-                name={product.name}
-                price={product.cost}
-                photo={product.img.hdUrl}
-                category={product.category}
-              />
+              product._id === currentId ?
+                <Exchange
+                  key={i}
+                  productId={product._id}
+                  name={product.name}
+                  price={product.cost}
+                  photo={product.img.hdUrl}
+                  category={product.category}
+                /> 
+              :
+                <Product
+                  key={i}
+                  productId={product._id}
+                  name={product.name}
+                  enabledPoints={user.points}
+                  price={product.cost}
+                  photo={product.img.hdUrl}
+                  category={product.category}
+                />
             ))
           : warning()}
       </div>
