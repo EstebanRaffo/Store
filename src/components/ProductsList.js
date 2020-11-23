@@ -4,9 +4,11 @@ import { AppContext } from "../components/ContextProvider";
 import Product from "./Product";
 import Exchange from "./Exchange";
 import ProductHistory from "./ProductHistory";
+import Moment from "moment";
+import "moment/locale/es";
 
 const ProductsList = ({ products, user, history, hasError, isLoading, match }) => {
-  const {searchTerm, priceRange, searchCategory, sort, currentId, historyQuery} = useContext(AppContext);
+  const {searchTerm, priceRange, searchCategory, sort, currentId, historyQuery, dateRange} = useContext(AppContext);
   let productsFiltered = useRef(null);
   let historyFiltered = useRef(null);
   const [productList, setProductList] = useState([]);
@@ -36,7 +38,10 @@ const ProductsList = ({ products, user, history, hasError, isLoading, match }) =
     setProductList(productsFiltered.current)
 
     if(historyQuery){
+      console.log("dateRange: ", dateRange)
       historyFiltered.current = history;
+      // console.log("createDate: ", historyFiltered.current[0].createDate)
+      console.log("createDate formato Moment: ", Moment(historyFiltered.current[0].createDate).format("YYYY-MM-DD"))
       console.log("history filtered antes del filtro: ", historyFiltered.current)
 
       if(searchTerm){
@@ -44,6 +49,9 @@ const ProductsList = ({ products, user, history, hasError, isLoading, match }) =
       }
       if(priceRange){
         historyFiltered.current = historyFiltered.current.filter(product => product.cost >= priceRange[0] && product.cost <= priceRange[1]);
+      }
+      if(dateRange){
+        historyFiltered.current = historyFiltered.current.filter(product => Moment(product.createDate).format("YYYY-MM-DD") >= dateRange[0] && Moment(product.createDate).format("YYYY-MM-DD") <= dateRange[1]); 
       }
       if(searchCategory){
         historyFiltered.current = historyFiltered.current.filter(product => searchCategory.indexOf(product.category) > -1)
@@ -59,7 +67,7 @@ const ProductsList = ({ products, user, history, hasError, isLoading, match }) =
       setHistoryList(historyFiltered.current)
     }
     
-  }, [searchTerm, priceRange, searchCategory, sort, products, history, historyQuery]);
+  }, [searchTerm, priceRange, searchCategory, sort, products, history, historyQuery, dateRange]);
  
   console.log("products filtered despues del filtro: ", productsFiltered.current)
   console.log("history filtered despues del filtro: ", historyFiltered.current)

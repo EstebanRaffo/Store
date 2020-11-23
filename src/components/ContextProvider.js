@@ -13,9 +13,12 @@ export default function AppProvider({ children }) {
   const [sort, setSort] = useState(0);
   const [currentId, setCurrentId] = useState("");
   const [historyQuery, setHistoryQuery] = useState(false);
-  const [dateRange, setDateRange] = useState([Moment().format("YYYY-MM-DD"), Moment().add(1, "month").format("YYYY-MM-DD")]);
+  
+  const today = new Date()
+  const [dateRange, setDateRange] = useState([Moment(today.valueOf()).format("YYYY-MM-DD"), Moment(today.valueOf() + 2592000000).format("YYYY-MM-DD")]);
+  // const [dateRange, setDateRange] = useState([today.valueOf(), today.valueOf() + 2592000000]);
 
-
+  
   return (
     <AppContext.Provider
       value={{
