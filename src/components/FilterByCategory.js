@@ -17,18 +17,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const FilterByCategory = ({products}) => {
-    const {searchCategory, setCategories} = useContext(AppContext);
+const FilterByCategory = ({products, history}) => {
+    const {searchCategory, setCategories, historyQuery} = useContext(AppContext);
     const classes = useStyles();
 
     let categories = [];
 
-    for(const product of products){
-      if(categories.indexOf(product.category) < 0){
-        categories.push(product.category)
+    if(historyQuery){
+      for(const product of history){
+        if(categories.indexOf(product.category) < 0){
+          categories.push(product.category)
+        }
+      }
+    }else{
+      for(const product of products){
+        if(categories.indexOf(product.category) < 0){
+          categories.push(product.category)
+        }
       }
     }
-  
+
     console.log("categories en FilterByCategory: ", categories)
     console.log("categories elegidas: ", searchCategory)
 
@@ -38,29 +46,30 @@ const FilterByCategory = ({products}) => {
 
     return (
       <div className={classes.root}>
-      <Autocomplete
-        multiple
-        limitTags={2}
-        id="multiple-limit-tags"
-        options={categories}
-        getOptionLabel={(option) => option}
-        onChange={handleChange}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            variant="outlined"
-            label="categorias"
-            placeholder="Favorites"
-          />
-        )}
-      />
-    </div>
+        <Autocomplete
+          multiple
+          limitTags={2}
+          id="multiple-limit-tags"
+          options={categories}
+          getOptionLabel={(option) => option}
+          onChange={handleChange}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="outlined"
+              label="categorias"
+              placeholder="Favorites"
+            />
+          )}
+        />
+      </div>
     );
 };
 
 const mapStateToProps = (state) => {
   return{
-    products: state.products
+    products: state.products,
+    history: state.history
   }
 }
 

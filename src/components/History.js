@@ -1,15 +1,24 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import Products from "../containers/Products";
 import { connect } from "react-redux";
 import { getHistory } from "../actions/actions";
+import { AppContext } from "../components/ContextProvider";
+
 
 const History = ({ getHistory, match }) => {
-  getHistory(); 
+  const {historyQuery, setHistoryQuery} = useContext(AppContext);
+  
+  useEffect(() => {
+    setHistoryQuery(true);
+    getHistory();
+    console.log("Se ejecutó getHistory()")
+  });
+
 
   return (
     <div className="home">
-      <h4>Historial de Canjes</h4>
       <hr></hr>
+      <h3>Canjes Realizados</h3>
       <Products match={match} />
     </div>
   );

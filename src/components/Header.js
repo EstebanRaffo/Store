@@ -1,17 +1,17 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import History from "./History";
 import User from "../containers/User";
 import { getUser } from "../actions/actions";
 
-import ButtonAddPoints from "./ButtonAddPoints";
+import ConfirmationDialog from "./AddPoints";
+
 
 const Header = ({getUser}) => {
 
-  React.useEffect(() => {
-    console.count("Se ejecutó getUser()");
+  useEffect(() => {
     getUser();
+    console.count("Se ejecutó getUser()");
   });
 
   return (
@@ -24,11 +24,8 @@ const Header = ({getUser}) => {
           Historial
         </Link>
       </div>
-      <Switch>
-        <Route path="/user/history" component={History} />
-      </Switch>
       
-      <ButtonAddPoints/>
+      <ConfirmationDialog/>
       <User/>              
     </div>
   );

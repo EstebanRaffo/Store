@@ -213,6 +213,7 @@ export const getHistory = () => {
 
 export const fetchHistory = (url) => {
   return (dispatch) => {
+    dispatch(clearProducts());
 
     dispatch(loadingError(false));
 

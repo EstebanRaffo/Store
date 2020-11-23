@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import { AppContext } from "./ContextProvider";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -17,7 +17,7 @@ function valuetext(value) {
 export default function RangeSlider() {
   const classes = useStyles();
   const {priceRange, setPriceRange} = useContext(AppContext);
-  const [value, setValue] = React.useState(priceRange);
+  const [value, setValue] = useState(priceRange);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import IconExchange from "./IconExchange";
 import { exchange, getUser } from "../actions/actions";
 import {useDispatch} from "react-redux";
@@ -47,6 +47,11 @@ const Exchange = ({productId, name, price, category}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const {currentId, setCurrentId} = useContext(AppContext);
+
+
+    useEffect(() => {
+      getUser()
+    })
 
     const handleClick = () => {
         console.info('You clicked Comprar.');

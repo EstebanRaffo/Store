@@ -1,67 +1,153 @@
-import React, { useContext, useState } from "react";
-import { AppContext } from "./ContextProvider";
-import "../styles/AddPoints.css";
+import React, {useState, useRef, useEffect} from 'react';
 import { addPoints, getUser } from "../actions/actions";
 import {useDispatch} from "react-redux";
-import {ButtonGroup, ToggleButton} from 'react-bootstrap'; 
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Dialog from '@material-ui/core/Dialog';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Radio from '@material-ui/core/Radio';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Chip from "@material-ui/core/Chip";
+import Avatar from "@material-ui/core/Avatar";
+import AddIcon from "@material-ui/icons/Add";
 
-const Modal = () => {
-  const { show, setShow } = useContext(AppContext);
-  const [radioValue, setRadioValue] = useState("1000");
-  console.log("points elegidos: ", radioValue)
-  const className = show ? "modal-content" : "modal-hidden";
-  const background = show ? "modal-background" : "";
-  
-  const radios = [
-    { name: '1000', value: '1000' },
-    { name: '5000', value: '5000' },
-    { name: '7500', value: '7500' },
-  ];
 
+const options = [
+  '1000',
+  '5000',
+  '7500'
+];
+
+function ConfirmationDialogRaw(props) {
+  const { onClose, value: valueProp, open, ...other } = props;
+  const [value, setPoints] = useState(valueProp);
+  const radioGroupRef = useRef(null);
   const dispatch = useDispatch();
 
-  const handleClose = () => {
-    setShow(!show);
+  console.log("points elegidos: ", value)
+
+  useEffect(() => {
+    if (!open) {
+      setPoints(valueProp);
+    }
+  }, [valueProp, open]);
+
+  const handleEntering = () => {
+    if (radioGroupRef.current != null) {
+      radioGroupRef.current.focus();
+    }
   };
 
-  const sendPoints = () => {
-    console.log("pointsSelected enviados: ", radioValue)
-    setShow(!show);
-    dispatch(addPoints(+radioValue));
+  const handleCancel = () => {
+    onClose();
+  };
+
+  const handleOk = () => {
+    console.log("points enviados: ", value)
+    onClose(value);
+    dispatch(addPoints(+value));
     dispatch(getUser());
   };
 
-  return (
-      <div className={background}>
-        <div className="centered">
-          <div className={className}>
-            <span className="cerrar" onClick={handleClose}>X</span>
-            <h3>¿Cuántos puntos sumamos?</h3>
-            <ButtonGroup toggle>
-                {radios.map((radio, idx) => (
-                    <ToggleButton
-                        key={idx}
-                        type="radio"
-                        variant="secondary"
-                        name="radio"
-                        value={radio.value}
-                        checked={radioValue === radio.value}
-                        onChange={(e) => setRadioValue(e.currentTarget.value)}
-                    >
-                        {radio.name}
-                    </ToggleButton>
-                ))}
-            </ButtonGroup>
+  const handleChange = ({target: {value}}) => {
+    setPoints(value);
+  };
 
-            <div>
-              <button id="search" className="btn btn-outline-secondary" type="button" onClick={() => sendPoints()}>
-                sumar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+  return (
+    <Dialog
+      disableBackdropClick
+      disableEscapeKeyDown
+      maxWidth="xs"
+      onEntering={handleEntering}
+      aria-labelledby="confirmation-dialog-title"
+      open={open}
+      {...other}
+    >
+      <DialogTitle id="confirmation-dialog-title">¿Cuántos puntos sumamos?</DialogTitle>
+      <DialogContent dividers>
+        <RadioGroup
+          ref={radioGroupRef}
+          aria-label="ringtone"
+          name="ringtone"
+          value={value}
+          onChange={handleChange}
+        >
+          {options.map((option) => (
+            <FormControlLabel value={option} key={option} control={<Radio />} label={option} />
+          ))}
+        </RadioGroup>
+      </DialogContent>
+      <DialogActions>
+        <Button autoFocus onClick={handleCancel} color="primary">
+          Cancelar
+        </Button>
+        <Button onClick={handleOk} color="primary">
+          Sumar
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
+}
+
+ConfirmationDialogRaw.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
-export default Modal;
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+  },
+  paper: {
+    width: '80%',
+    maxHeight: 435,
+  },
+}));
+
+export default function ConfirmationDialog() {
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const [value, setPoints] = useState('1000');
+
+  const handleClickListItem = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (newValue) => {
+    setOpen(false);
+
+    if (newValue) {
+      setPoints(newValue);
+    }
+  };
+
+  return (
+    <div className={classes.root}>
+        <Chip
+            avatar={
+            <Avatar>
+                <AddIcon />
+            </Avatar>
+            }
+            label="SUMA PUNTOS"
+            onClick={() => handleClickListItem()}
+        />
+        <ConfirmationDialogRaw
+          classes={{
+            paper: classes.paper,
+          }}
+          id="ringtone-menu"
+          keepMounted
+          open={open}
+          onClose={handleClose}
+          value={value}
+        />
+    </div>
+  );
+}
