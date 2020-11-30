@@ -1,8 +1,11 @@
 import React from "react";
+import {Chip} from '@material-ui/core';
+import Coin from "./Coin";
 
 const UserData = ({user, hasError, isLoading}) => {
   
   // console.log("user: ", user)
+  
   
   if (hasError) {
     return (
@@ -21,8 +24,9 @@ const UserData = ({user, hasError, isLoading}) => {
   }
 
   return (
-    <div className="UserData">
-      <h4>{user.name} {user.points}</h4>
+    <div className="user-data">
+      <h4>{user.name}</h4>
+      <Chip avatar={<Coin/>} label={user.points} />
     </div>
   );
 };

@@ -13,11 +13,14 @@ export default function AppProvider({ children }) {
   const [sort, setSort] = useState(0);
   const [currentId, setCurrentId] = useState("");
   const [historyQuery, setHistoryQuery] = useState(false);
-  
-  const today = new Date()
-  const [dateRange, setDateRange] = useState([Moment(today.valueOf()).format("YYYY-MM-DD"), Moment(today.valueOf() + 2592000000).format("YYYY-MM-DD")]);
-  // const [dateRange, setDateRange] = useState([today.valueOf(), today.valueOf() + 2592000000]);
+  const [currentPage, setCurrentPage] = useState(1);
 
+  const today = new Date();
+  const initDateFrom = Moment(today.valueOf()).format("YYYY-MM-DD");
+  const initDateTo = Moment(today.valueOf() + 2592000000).format("YYYY-MM-DD");
+
+  const [dateFrom, setDateFrom] = useState(initDateFrom);
+  const [dateTo, setDateTo] = useState(initDateTo);
   
   return (
     <AppContext.Provider
@@ -28,7 +31,9 @@ export default function AppProvider({ children }) {
         sort, setSort,
         currentId, setCurrentId,
         historyQuery, setHistoryQuery,
-        dateRange, setDateRange
+        dateFrom, setDateFrom,
+        dateTo, setDateTo,
+        currentPage, setCurrentPage
       }}
     >
       {children}

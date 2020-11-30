@@ -4,16 +4,24 @@ import { AppContext } from "../components/ContextProvider";
 import Product from "./Product";
 import Exchange from "./Exchange";
 import ProductHistory from "./ProductHistory";
+import usePagination from "./Pagination";
+import IconNext from "./IconNext";
+import IconPrev from "./IconPrev";
+import {IconButton} from '@material-ui/core';
+
 import Moment from "moment";
 import "moment/locale/es";
 
+const ITEMSPERPAGE = 16;
+
 const ProductsList = ({ products, user, history, hasError, isLoading, match }) => {
-  const {searchTerm, priceRange, searchCategory, sort, currentId, historyQuery, dateRange} = useContext(AppContext);
+  const {searchTerm, priceRange, searchCategory, sort, currentId, historyQuery, dateFrom, dateTo, currentPage} = useContext(AppContext);
   let productsFiltered = useRef(null);
   let historyFiltered = useRef(null);
   const [productList, setProductList] = useState([]);
   const [historyList, setHistoryList] = useState([]);
 
+  
   useEffect(() => {
     productsFiltered.current = products;
     console.log("products filtered antes del filtro: ", productsFiltered.current)
@@ -38,20 +46,19 @@ const ProductsList = ({ products, user, history, hasError, isLoading, match }) =
     setProductList(productsFiltered.current)
 
     if(historyQuery){
-      console.log("dateRange: ", dateRange)
+      console.log("dateFrom: ", dateFrom)
+      console.log("dateTo: ", dateTo)
       historyFiltered.current = history;
-      // console.log("createDate: ", historyFiltered.current[0].createDate)
-      console.log("createDate formato Moment: ", Moment(historyFiltered.current[0].createDate).format("YYYY-MM-DD"))
+  
       console.log("history filtered antes del filtro: ", historyFiltered.current)
 
+      historyFiltered.current = historyFiltered.current.filter(product => Moment(product.createDate).format("YYYY-MM-DD") >= dateFrom && Moment(product.createDate).format("YYYY-MM-DD") <= dateTo); 
+      
       if(searchTerm){
         historyFiltered.current = historyFiltered.current.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
       }
       if(priceRange){
         historyFiltered.current = historyFiltered.current.filter(product => product.cost >= priceRange[0] && product.cost <= priceRange[1]);
-      }
-      if(dateRange){
-        historyFiltered.current = historyFiltered.current.filter(product => Moment(product.createDate).format("YYYY-MM-DD") >= dateRange[0] && Moment(product.createDate).format("YYYY-MM-DD") <= dateRange[1]); 
       }
       if(searchCategory){
         historyFiltered.current = historyFiltered.current.filter(product => searchCategory.indexOf(product.category) > -1)
@@ -67,10 +74,11 @@ const ProductsList = ({ products, user, history, hasError, isLoading, match }) =
       setHistoryList(historyFiltered.current)
     }
     
-  }, [searchTerm, priceRange, searchCategory, sort, products, history, historyQuery, dateRange]);
+  }, [searchTerm, priceRange, searchCategory, sort, products, history, historyQuery, dateFrom, dateTo]);
  
-  console.log("products filtered despues del filtro: ", productsFiltered.current)
-  console.log("history filtered despues del filtro: ", historyFiltered.current)
+  
+  const paginate = usePagination(productList, ITEMSPERPAGE);
+  const {currentData} = paginate; 
 
   console.log("user: ", user)
     
@@ -117,9 +125,10 @@ const ProductsList = ({ products, user, history, hasError, isLoading, match }) =
                 />
             ))
             : warning()
+
         : 
         productList.length > 0
-          ? productList.map((product, i) => (
+          ? currentData().map((product, i) => (
               product._id === currentId ?
                 <Exchange
                   key={i}
@@ -140,8 +149,18 @@ const ProductsList = ({ products, user, history, hasError, isLoading, match }) =
                   category={product.category}
                 />
             ))
-          : warning()}
+          : warning() 
+        }
       </div>
+      {currentPage === 1 ? (
+          <IconButton aria-label="delete">
+            <IconNext />
+          </IconButton>
+        ) : (
+          <IconButton aria-label="delete">
+            <IconPrev />
+          </IconButton>
+      )}
     </section>
   );
 }

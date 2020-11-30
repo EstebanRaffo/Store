@@ -17,22 +17,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DatePickers() {
     const classes = useStyles();
-    const {dateRange, setDateRange} = useContext(AppContext);
-    const [dateFrom, setDateFrom] = useState(dateRange[0]);
-    const [dateTo, setDateTo] = useState(dateRange[1]);
+  
+    const {dateFrom, setDateFrom} = useContext(AppContext);
+    const {dateTo, setDateTo} = useContext(AppContext);
     
-    console.log("dateRange: ", dateRange)
+    console.log("dateFrom: ", dateFrom)
+    console.log("dateTo: ", dateTo)
 
     const handleFrom = ({target: {value}}) => {
-        setDateFrom(value);
-        const newDateRange = [dateFrom, dateTo];
-        setDateRange(newDateRange); 
+        setDateFrom(value); 
     }
 
     const handleTo = ({target: {value}}) => {
-        setDateTo(value);
-        const newDateRange = [dateFrom, dateTo];
-        setDateRange(newDateRange); 
+        setDateTo(value); 
     }
 
     return (

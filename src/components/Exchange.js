@@ -49,10 +49,6 @@ const Exchange = ({productId, name, price, category}) => {
     const {currentId, setCurrentId} = useContext(AppContext);
 
 
-    useEffect(() => {
-      getUser()
-    })
-
     const handleClick = () => {
         console.info('You clicked Comprar.');
         dispatch(exchange(productId));

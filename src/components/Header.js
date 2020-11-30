@@ -1,18 +1,30 @@
-import React, {useEffect} from "react";
-import { Link, Switch, Route } from "react-router-dom";
+import React, {useEffect, useContext} from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import User from "../containers/User";
 import { getUser } from "../actions/actions";
+import User from "../containers/User";
+import AddPoints from "./AddPoints";
 
-import ConfirmationDialog from "./AddPoints";
-
+import { Switch } from "@material-ui/core";
+import {CustomThemeContext} from "../themes/CustomThemeProvider";
 
 const Header = ({getUser}) => {
+
+  const { currentTheme, setTheme } = useContext(CustomThemeContext);
 
   useEffect(() => {
     getUser();
     console.count("Se ejecutó getUser()");
   });
+
+  const handleThemeChange = (event) => {
+    const { checked } = event.target
+    if (checked) {
+      setTheme('dark')
+    } else {
+      setTheme('normal')
+    }
+  }
 
   return (
     <div className="header">
@@ -24,8 +36,12 @@ const Header = ({getUser}) => {
           Historial
         </Link>
       </div>
-      
-      <ConfirmationDialog/>
+      <AddPoints/>
+      <Switch
+        onChange={handleThemeChange}
+        name="checkedA"
+        inputProps={{ 'aria-label': 'secondary checkbox' }}
+      />
       <User/>              
     </div>
   );

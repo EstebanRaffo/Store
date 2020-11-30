@@ -7,18 +7,17 @@ import Home from "./Home";
 import History from "./History";
 
 
-const Main = () => {
-  return (
-    <>
-        <Header/>
-        <Banner/>
-        <Filters/>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/user/history" component={History} />
-        </Switch>
-    </>
-  );
-};
+const Main = () => (
+  <>
+    <Header/>
+    <Banner/>
+    <Filters/>
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route path="/user/history" component={History} />
+    </Switch>
+  </>
+);
+
 
 export default Main;
