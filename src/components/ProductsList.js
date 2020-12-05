@@ -14,44 +14,21 @@ import "moment/locale/es";
 
 const ITEMSPERPAGE = 16;
 
-const ProductsList = ({ products, user, history, hasError, isLoading, match }) => {
-  const {searchTerm, priceRange, searchCategory, sort, currentId, historyQuery, dateFrom, dateTo, currentPage} = useContext(AppContext);
+const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHasError, exchangeIsLoading, exchange: {message} }) => {
+  const {searchTerm, priceRange, searchCategory, sort, currentId, historyQuery, dateFrom, dateTo, currentPage, currentExchangingId} = useContext(AppContext);
   let productsFiltered = useRef(null);
   let historyFiltered = useRef(null);
   const [productList, setProductList] = useState([]);
   const [historyList, setHistoryList] = useState([]);
 
+  useEffect(() => {
+    console.log("user: ", user)
+  })
   
   useEffect(() => {
-    productsFiltered.current = products;
-    console.log("products filtered antes del filtro: ", productsFiltered.current)
-
-    if(searchTerm){
-      productsFiltered.current = productsFiltered.current.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
-    }
-    if(priceRange){
-      productsFiltered.current = productsFiltered.current.filter(product => product.cost >= priceRange[0] && product.cost <= priceRange[1]);
-    }
-    if(searchCategory){
-      productsFiltered.current = productsFiltered.current.filter(product => searchCategory.indexOf(product.category) > -1)
-    }
-    if(sort){
-      if(sort === 10){
-        productsFiltered.current = productsFiltered.current.sort((a, b) => (a.cost > b.cost ? 1 : a.cost < b.cost ? -1 : 0))
-      }
-      if(sort === 20){
-        productsFiltered.current = productsFiltered.current.sort((b, a) => (a.cost > b.cost ? 1 : a.cost < b.cost ? -1 : 0))
-      }
-    }  
-    setProductList(productsFiltered.current)
-
+    
     if(historyQuery){
-      console.log("dateFrom: ", dateFrom)
-      console.log("dateTo: ", dateTo)
       historyFiltered.current = history;
-  
-      console.log("history filtered antes del filtro: ", historyFiltered.current)
-
       historyFiltered.current = historyFiltered.current.filter(product => Moment(product.createDate).format("YYYY-MM-DD") >= dateFrom && Moment(product.createDate).format("YYYY-MM-DD") <= dateTo); 
       
       if(searchTerm){
@@ -72,17 +49,36 @@ const ProductsList = ({ products, user, history, hasError, isLoading, match }) =
         }
       }  
       setHistoryList(historyFiltered.current)
+
+    }else{
+
+      productsFiltered.current = products;
+
+      if(searchTerm){
+        productsFiltered.current = productsFiltered.current.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
+      }
+      if(priceRange){
+        productsFiltered.current = productsFiltered.current.filter(product => product.cost >= priceRange[0] && product.cost <= priceRange[1]);
+      }
+      if(searchCategory){
+        productsFiltered.current = productsFiltered.current.filter(product => searchCategory.indexOf(product.category) > -1)
+      }
+      if(sort){
+        if(sort === 10){
+          productsFiltered.current = productsFiltered.current.sort((a, b) => (a.cost > b.cost ? 1 : a.cost < b.cost ? -1 : 0))
+        }
+        if(sort === 20){
+          productsFiltered.current = productsFiltered.current.sort((b, a) => (a.cost > b.cost ? 1 : a.cost < b.cost ? -1 : 0))
+        }
+      }  
+      setProductList(productsFiltered.current)
     }
     
   }, [searchTerm, priceRange, searchCategory, sort, products, history, historyQuery, dateFrom, dateTo]);
- 
-  
-  const paginate = usePagination(productList, ITEMSPERPAGE);
-  const {currentData} = paginate; 
-
-  console.log("user: ", user)
     
-
+  const paginate = usePagination(productList, historyList, ITEMSPERPAGE);
+  const {currentData, currentHistoryData} = paginate; 
+    
   const warning = () => {
     return (
       <article className="message is-warning">
@@ -109,12 +105,14 @@ const ProductsList = ({ products, user, history, hasError, isLoading, match }) =
       );
   }
   
+  
+
   return (
     <section className="section">
       <div className="products-container">    
         {historyQuery ?
           historyList.length > 0
-            ? historyList.map((product, i) => (
+            ? currentHistoryData().map((product, i) => (
                 <ProductHistory
                   key={i}
                   name={product.name}
@@ -129,6 +127,12 @@ const ProductsList = ({ products, user, history, hasError, isLoading, match }) =
         : 
         productList.length > 0
           ? currentData().map((product, i) => (
+              product._id === currentExchangingId ?
+              exchangeIsLoading ? <h6>Canjeando...</h6> 
+                : 
+                exchangeHasError ? <h6>Error al canjear</h6> : <h6>{message}</h6> 
+
+              :
               product._id === currentId ?
                 <Exchange
                   key={i}

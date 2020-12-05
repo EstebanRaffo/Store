@@ -28,8 +28,6 @@ function ConfirmationDialogRaw(props) {
   const radioGroupRef = useRef(null);
   const dispatch = useDispatch();
 
-  console.log("points elegidos: ", value)
-
   useEffect(() => {
     if (!open) {
       setPoints(valueProp);
@@ -47,7 +45,6 @@ function ConfirmationDialogRaw(props) {
   };
 
   const handleOk = () => {
-    console.log("points enviados: ", value)
     onClose(value);
     dispatch(addPoints(+value));
     dispatch(getUser());
@@ -131,9 +128,9 @@ export default function ConfirmationDialog() {
     <div className={classes.root}>
         <Chip
             avatar={
-            <Avatar>
-                <AddIcon />
-            </Avatar>
+              <Avatar>
+                  <AddIcon />
+              </Avatar>
             }
             label="SUMA PUNTOS"
             onClick={() => handleClickListItem()}

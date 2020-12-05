@@ -10,7 +10,7 @@ const IconPrev = () => {
                 <title>anterior</title>
                 <desc>Created with Sketch.</desc>
                 <defs></defs>
-                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                     <g id="Catalog-p2" transform="translate(-1200.000000, -512.000000)">
                         <g id="menu" transform="translate(132.000000, 512.000000)">
                             <g id="arrow-left" transform="translate(1068.000000, 0.000000)">

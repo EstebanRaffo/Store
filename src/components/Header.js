@@ -10,7 +10,7 @@ import {CustomThemeContext} from "../themes/CustomThemeProvider";
 
 const Header = ({getUser}) => {
 
-  const { currentTheme, setTheme } = useContext(CustomThemeContext);
+  const { setTheme } = useContext(CustomThemeContext);
 
   useEffect(() => {
     getUser();

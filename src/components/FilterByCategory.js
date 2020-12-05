@@ -37,9 +37,6 @@ const FilterByCategory = ({products, history}) => {
       }
     }
 
-    console.log("categories en FilterByCategory: ", categories)
-    console.log("categories elegidas: ", searchCategory)
-
     const handleChange = (event, value) => {
       setCategories(value);
     };

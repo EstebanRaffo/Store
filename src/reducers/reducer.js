@@ -3,6 +3,8 @@ import {
   LOADING_ERROR,
   LOADING_SUCCESS,
   LOADING_IN_PROGRESS,
+  LOADING_EXCHANGE_ERROR,
+  LOADING_EXCHANGE_IN_PROGRESS,
   CLEAR_PRODUCTS,
   USER_LOADING_SUCCESS,
   HISTORY_LOADING_SUCCESS,
@@ -10,6 +12,23 @@ import {
   EXCHANGE_SUCCESS
 } from "../actions/actions";
 
+const loadingExchangeError = (state = false, action) => {
+  switch (action.type) {
+    case LOADING_EXCHANGE_ERROR:
+      return action.hasErrored;
+    default:
+      return state;
+  }
+};
+
+const loadingExchangeInProgress = (state = false, action) => {
+  switch (action.type) {
+    case LOADING_EXCHANGE_IN_PROGRESS:
+      return action.isLoading;
+    default:
+      return state;
+  }
+};
 
 const loadingError = (state = false, action) => {
   switch (action.type) {
@@ -86,6 +105,8 @@ export default combineReducers({
   products,
   loadingError,
   loadingInProgress,
+  loadingExchangeError,
+  loadingExchangeInProgress,
   user,
   history,
   points,

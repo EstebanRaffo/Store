@@ -20,9 +20,6 @@ export default function DatePickers() {
   
     const {dateFrom, setDateFrom} = useContext(AppContext);
     const {dateTo, setDateTo} = useContext(AppContext);
-    
-    console.log("dateFrom: ", dateFrom)
-    console.log("dateTo: ", dateTo)
 
     const handleFrom = ({target: {value}}) => {
         setDateFrom(value); 

@@ -5,12 +5,14 @@ import ProductsList from "../components/ProductsList";
 const mapStateToProps = (state, props) => {
 
   return {
-    match: props.match,
     user: state.user,
     products: state.products,
     history: state.history,
     hasError: state.loadingError,
-    isLoading: state.loadingInProgress
+    isLoading: state.loadingInProgress,
+    exchangeHasError: state.loadingExchangeError,
+    exchangeIsLoading: state.loadingExchangeInProgress,
+    exchange: state.exchange
   };
 };
 

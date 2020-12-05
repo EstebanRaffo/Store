@@ -3,10 +3,7 @@ import {Chip} from '@material-ui/core';
 import Coin from "./Coin";
 
 const UserData = ({user, hasError, isLoading}) => {
-  
-  // console.log("user: ", user)
-  
-  
+    
   if (hasError) {
     return (
       <div>

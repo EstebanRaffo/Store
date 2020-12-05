@@ -14,6 +14,7 @@ export default function AppProvider({ children }) {
   const [currentId, setCurrentId] = useState("");
   const [historyQuery, setHistoryQuery] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentExchangingId, setCurrentExchangingId] = useState("");
 
   const today = new Date();
   const initDateFrom = Moment(today.valueOf()).format("YYYY-MM-DD");
@@ -33,7 +34,8 @@ export default function AppProvider({ children }) {
         historyQuery, setHistoryQuery,
         dateFrom, setDateFrom,
         dateTo, setDateTo,
-        currentPage, setCurrentPage
+        currentPage, setCurrentPage,
+        currentExchangingId, setCurrentExchangingId
       }}
     >
       {children}

@@ -1,5 +1,8 @@
 export const LOADING_ERROR = "LOADING_ERROR";
 export const LOADING_IN_PROGRESS = "LOADING_IN_PROGRESS";
+export const LOADING_EXCHANGE_ERROR = "LOADING_EXCHANGE_ERROR";
+export const LOADING_EXCHANGE_IN_PROGRESS = "LOADING_EXCHANGE_IN_PROGRESS";
+
 export const CLEAR_PRODUCTS = "CLEAR_PRODUCTS";
 export const LOADING_SUCCESS = "LOADING_SUCCESS";
 
@@ -114,11 +117,10 @@ export const addPoints = (points) => {
 }
 
 export const postPoints = (url, data) => {
-  console.log("Entro en postPoints con: ", data)
-  return (dispatch) => {
-    console.log("Entro en (dispatch) => {}")
-    dispatch(loadingError(false));
 
+  return (dispatch) => {
+
+    dispatch(loadingError(false));
     dispatch(loadingInProgress(true));
 
     fetch(url, {
@@ -158,6 +160,16 @@ export const addPointsSuccess = (points) => ({
 
 /******************************************************** Exchange *************************************************************/
 
+export const loadingExchangeError = (bool) => ({
+  type: LOADING_EXCHANGE_ERROR,
+  hasErrored: bool
+});
+
+export const loadingExchangeInProgress = (bool) => ({
+  type: LOADING_EXCHANGE_IN_PROGRESS,
+  isLoading: bool
+});
+
 export const exchange = (productId) => {
   const url = "https://coding-challenge-api.aerolab.co/redeem";
   const data = {productId: productId}
@@ -167,9 +179,8 @@ export const exchange = (productId) => {
 export const postExchange = (url, data) => {
   return (dispatch) => {
 
-    dispatch(loadingError(false));
-
-    dispatch(loadingInProgress(true));
+    dispatch(loadingExchangeError(false));
+    dispatch(loadingExchangeInProgress(true));
 
     fetch(url, {
       method: 'POST',
@@ -181,7 +192,7 @@ export const postExchange = (url, data) => {
           throw Error(response.statusText);
         }
 
-        dispatch(loadingInProgress(false));
+        dispatch(loadingExchangeInProgress(false));
 
         return response;
       })
@@ -190,7 +201,7 @@ export const postExchange = (url, data) => {
         console.log("exchange: ", result)
         dispatch(exchangeSuccess(result));
       })
-      .catch(() => dispatch(loadingError(true)));
+      .catch(() => dispatch(loadingExchangeError(true)));
   };
 };
 
@@ -231,7 +242,7 @@ export const fetchHistory = (url) => {
       })
       .then((response) => response.json())
       .then((history) => {
-        const historyFiltered = history.slice(0, 32);
+        const historyFiltered = history.slice(0, 64);
         dispatch(loadingHistorySuccess(historyFiltered));
       })
       .catch(() => dispatch(loadingError(true)));

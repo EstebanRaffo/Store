@@ -52,7 +52,7 @@ const Product = ({ productId, name, enabledPoints, price, photo, category }) => 
       <CardHeader
         avatar={
           <IconButton aria-label="add to favorites">
-            {sufficientBalance ? <IconBuy productId={productId} /> : <LackPoints delta={price - enabledPoints} />}
+            {sufficientBalance() ? <IconBuy productId={productId} /> : <LackPoints delta={price - enabledPoints} />}
           </IconButton>
         }
       />

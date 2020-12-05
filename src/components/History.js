@@ -6,7 +6,7 @@ import { AppContext } from "../components/ContextProvider";
 
 
 const History = ({ getHistory, match }) => {
-  const {historyQuery, setHistoryQuery} = useContext(AppContext);
+  const {setHistoryQuery} = useContext(AppContext);
   
   useEffect(() => {
     setHistoryQuery(true);

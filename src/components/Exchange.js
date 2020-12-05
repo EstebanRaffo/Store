@@ -46,13 +46,14 @@ const useStyles = makeStyles((theme) => ({
 const Exchange = ({productId, name, price, category}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const {currentId, setCurrentId} = useContext(AppContext);
+    const {setCurrentId, setCurrentExchangingId} = useContext(AppContext);
 
 
     const handleClick = () => {
         console.info('You clicked Comprar.');
         dispatch(exchange(productId));
         setCurrentId("");
+        setCurrentExchangingId(productId);
         dispatch(getUser());
     };
 
