@@ -1,22 +1,14 @@
-import React, {useContext} from "react";
-import IconExchange from "./IconExchange";
-import { exchange } from "../actions/actions";
-import {useDispatch} from "react-redux";
-import { AppContext } from "../components/ContextProvider";
+import React from "react";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 
-import Coin from "./Coin";
-import Chip from '@material-ui/core/Chip';
-
+import LoadingExchange from "./LoadingExchange";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,49 +35,24 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Exchange = ({productId, name, price, category}) => {
+const Exchanging = () => {
     const classes = useStyles();
-    const dispatch = useDispatch();
-    const {setCurrentId, setCurrentExchangingId} = useContext(AppContext);
-
-    const handleClick = () => {
-        dispatch(exchange(productId));
-        setCurrentId("");
-        setCurrentExchangingId(productId);
-    };
-
 
     return(
         <Card className={classes.root}>
-            <CardHeader
-                avatar={
-                <IconButton aria-label="add to favorites">
-                    <IconExchange/>
-                </IconButton>
-                }
-            />
             <CardMedia className={classes.media}>
                 <Typography variant="h4" align="center">
-                    {price} 
-                    <Coin/>
+                    <LoadingExchange />
                 </Typography>
-                <Chip 
-                  label="Canjear" 
-                  onClick={handleClick}
-                  clickable 
-                />
             </CardMedia>
             <Divider variant="middle" />
             <CardContent>
-                <Typography variant="subtitle2" color="primary">
-                    {category}
-                </Typography>
                 <Typography variant="body2" component="span" display="block">
-                    {name} 
+                    {"Canjeando"} 
                 </Typography>
             </CardContent>
         </Card>
     )
 }
 
-export default Exchange;
+export default Exchanging;

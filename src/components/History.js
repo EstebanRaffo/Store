@@ -11,8 +11,7 @@ const History = ({ getHistory, match }) => {
   useEffect(() => {
     setHistoryQuery(true);
     getHistory();
-    console.log("Se ejecutó getHistory()")
-  });
+  }, [getHistory, setHistoryQuery]);
 
 
   return (

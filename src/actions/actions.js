@@ -2,16 +2,25 @@ export const LOADING_ERROR = "LOADING_ERROR";
 export const LOADING_IN_PROGRESS = "LOADING_IN_PROGRESS";
 export const LOADING_EXCHANGE_ERROR = "LOADING_EXCHANGE_ERROR";
 export const LOADING_EXCHANGE_IN_PROGRESS = "LOADING_EXCHANGE_IN_PROGRESS";
+export const LOADING_USER_ERROR = "LOADING_USER_ERROR"; 
+export const LOADING_USER_IN_PROGRESS = "LOADING_USER_IN_PROGRESS";
 
 export const CLEAR_PRODUCTS = "CLEAR_PRODUCTS";
-export const LOADING_SUCCESS = "LOADING_SUCCESS";
 
+export const LOADING_SUCCESS = "LOADING_SUCCESS";
 export const USER_LOADING_SUCCESS = "USER_LOADING_SUCCESS"
 export const HISTORY_LOADING_SUCCESS = "HISTORY_LOADING_SUCCESS";
 export const ADD_POINTS_SUCCESS = "ADD_POINTS_SUCCESS";
 export const EXCHANGE_SUCCESS = "EXCHANGE_SUCCESS";
 
 
+export const headers = {
+  "Content-Type": "application/json",
+  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjdmNjZhZjJiNjU3MDAwMWZjZTZjNDciLCJpYXQiOjE2MDIxODQ4Nzl9.d9Fo9paYF9kCpospKG7pglidFsMAXy5BUl6odcuB78o"
+}
+
+
+/********************************************************** Products *********************************************************/
 export const loadingError = (bool) => ({
   type: LOADING_ERROR,
   hasErrored: bool
@@ -26,13 +35,6 @@ export const clearProducts = () => ({
   type: CLEAR_PRODUCTS
 });
 
-export const headers = {
-  "Content-Type": "application/json",
-  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjdmNjZhZjJiNjU3MDAwMWZjZTZjNDciLCJpYXQiOjE2MDIxODQ4Nzl9.d9Fo9paYF9kCpospKG7pglidFsMAXy5BUl6odcuB78o"
-}
-
-/********************************************************** Products *********************************************************/
-
 export const getProducts = () => {
   const url = "https://coding-challenge-api.aerolab.co/products";
   return fetchProducts(url);
@@ -40,10 +42,9 @@ export const getProducts = () => {
 
 export const fetchProducts = (url) => {
   return (dispatch) => {
+
     dispatch(clearProducts());
-
     dispatch(loadingError(false));
-
     dispatch(loadingInProgress(true));
 
     fetch(url, {headers})
@@ -60,6 +61,7 @@ export const fetchProducts = (url) => {
       .then((products) => {
         const productsObtained = products.slice(0, 32);
         dispatch(loadingSuccess(productsObtained));
+        dispatch(getUser())
       })
       .catch(() => dispatch(loadingError(true)));
   };
@@ -70,7 +72,18 @@ export const loadingSuccess = (products) => ({
   products
 });
 
+
 /********************************************************** User *************************************************************/
+
+export const loadingUserError = (bool) => ({
+  type: LOADING_USER_ERROR,
+  hasErrored: bool
+});
+
+export const loadingUserInProgress = (bool) => ({
+  type: LOADING_USER_IN_PROGRESS,
+  isLoading: bool
+});
 
 export const getUser = () => {
   const url = "https://coding-challenge-api.aerolab.co/user/me";
@@ -80,9 +93,8 @@ export const getUser = () => {
 export const fetchUser = (url) => {
   return (dispatch) => {
 
-    dispatch(loadingError(false));
-
-    dispatch(loadingInProgress(true));
+    dispatch(loadingUserError(false));
+    dispatch(loadingUserInProgress(true));
 
     fetch(url, {headers})
       .then((response) => {
@@ -90,7 +102,7 @@ export const fetchUser = (url) => {
           throw Error(response.statusText);
         }
 
-        dispatch(loadingInProgress(false));
+        dispatch(loadingUserInProgress(false));
 
         return response;
       })
@@ -98,7 +110,7 @@ export const fetchUser = (url) => {
       .then((user) => {
         dispatch(userLoadingSuccess(user));
       })
-      .catch(() => dispatch(loadingError(true)));
+      .catch(() => dispatch(loadingUserError(true)));
   };
 };
 
@@ -117,7 +129,6 @@ export const addPoints = (points) => {
 }
 
 export const postPoints = (url, data) => {
-
   return (dispatch) => {
 
     dispatch(loadingError(false));
@@ -140,17 +151,13 @@ export const postPoints = (url, data) => {
       })
       .then((response) => response.json())
       .then((newPoints) => {
-        console.log("points resultado: ", newPoints);
         dispatch(addPointsSuccess(newPoints));
+        dispatch(getUser());
       })
       .catch(() => dispatch(loadingError(true)));
   };
 };
 
-// {
-//   "message": "Points Updated",
-//   "new Points": 2000
-// }
 
 export const addPointsSuccess = (points) => ({
   type: ADD_POINTS_SUCCESS,
@@ -198,16 +205,12 @@ export const postExchange = (url, data) => {
       })
       .then((response) => response.json())
       .then((result) => {
-        console.log("exchange: ", result)
         dispatch(exchangeSuccess(result));
+        dispatch(getUser());
       })
       .catch(() => dispatch(loadingExchangeError(true)));
   };
 };
-
-// {
-//   "message": "You've redeem the product successfully"
-// }
 
 export const exchangeSuccess = (result) => ({
   type: EXCHANGE_SUCCESS,
@@ -224,10 +227,9 @@ export const getHistory = () => {
 
 export const fetchHistory = (url) => {
   return (dispatch) => {
+
     dispatch(clearProducts());
-
     dispatch(loadingError(false));
-
     dispatch(loadingInProgress(true));
 
     fetch(url, {headers})

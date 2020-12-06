@@ -5,20 +5,18 @@ import { getProducts } from "../actions/actions";
 import { AppContext } from "../components/ContextProvider";
 
 
-const Home = ({ getProducts, match }) => {
-  const {historyQuery, setHistoryQuery} = useContext(AppContext);
+const Home = ({ getProducts }) => {
+  const {setHistoryQuery} = useContext(AppContext);
   
   useEffect(() => {
     setHistoryQuery(false);
     getProducts();
-    console.log("Se ejecutó getProducts()")
-  }, []);
-  
+  }, [getProducts, setHistoryQuery]);
 
   return (
     <div className="home">
       <hr></hr>
-      <Products match={match} />
+      <Products />
     </div>
   );
 };

@@ -5,12 +5,34 @@ import {
   LOADING_IN_PROGRESS,
   LOADING_EXCHANGE_ERROR,
   LOADING_EXCHANGE_IN_PROGRESS,
+  LOADING_USER_ERROR,
+  LOADING_USER_IN_PROGRESS,
   CLEAR_PRODUCTS,
   USER_LOADING_SUCCESS,
   HISTORY_LOADING_SUCCESS,
   ADD_POINTS_SUCCESS,
   EXCHANGE_SUCCESS
 } from "../actions/actions";
+
+
+const loadingError = (state = false, action) => {
+  switch (action.type) {
+    case LOADING_ERROR:
+      return action.hasErrored;
+    default:
+      return state;
+  }
+};
+
+const loadingInProgress = (state = false, action) => {
+  switch (action.type) {
+    case LOADING_IN_PROGRESS:
+      return action.isLoading;
+    default:
+      return state;
+  }
+};
+
 
 const loadingExchangeError = (state = false, action) => {
   switch (action.type) {
@@ -30,18 +52,18 @@ const loadingExchangeInProgress = (state = false, action) => {
   }
 };
 
-const loadingError = (state = false, action) => {
+const loadingUserError = (state = false, action) => {
   switch (action.type) {
-    case LOADING_ERROR:
+    case LOADING_USER_ERROR:
       return action.hasErrored;
     default:
       return state;
   }
 };
 
-const loadingInProgress = (state = false, action) => {
+const loadingUserInProgress = (state = false, action) => {
   switch (action.type) {
-    case LOADING_IN_PROGRESS:
+    case LOADING_USER_IN_PROGRESS:
       return action.isLoading;
     default:
       return state;
@@ -105,10 +127,12 @@ export default combineReducers({
   products,
   loadingError,
   loadingInProgress,
+  exchange,
   loadingExchangeError,
   loadingExchangeInProgress,
   user,
+  loadingUserError,
+  loadingUserInProgress,
   history,
   points,
-  exchange
 });

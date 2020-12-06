@@ -22,7 +22,6 @@ export default function RangeSlider() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
     setPriceRange(newValue)
-    console.log(priceRange)
   };
 
   return (

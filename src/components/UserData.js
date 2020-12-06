@@ -1,23 +1,18 @@
 import React from "react";
-import {Chip} from '@material-ui/core';
+
 import Coin from "./Coin";
+import UserLoader from "./UserLoader";
+import UserError from "./UserError";
+import {Chip} from '@material-ui/core';
 
 const UserData = ({user, hasError, isLoading}) => {
-    
+
   if (hasError) {
-    return (
-      <div>
-        <h6>Error al cargar el usuario</h6>
-      </div>
-    );
+    return <UserError />
   }
 
   if (isLoading) {
-    return (
-      <div>
-        <h6>Cargando...</h6>
-      </div>
-    );
+    return <UserLoader />
   }
 
   return (
@@ -27,6 +22,5 @@ const UserData = ({user, hasError, isLoading}) => {
     </div>
   );
 };
-
 
 export default UserData;

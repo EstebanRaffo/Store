@@ -11,6 +11,9 @@ import {IconButton} from '@material-ui/core';
 
 import Moment from "moment";
 import "moment/locale/es";
+import SuccessExchange from "./SuccessExchange";
+import ErrorExchange from "./ErrorExchange";
+import Exchanging from "./Exchanging";
 
 const ITEMSPERPAGE = 16;
 
@@ -21,9 +24,6 @@ const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHa
   const [productList, setProductList] = useState([]);
   const [historyList, setHistoryList] = useState([]);
 
-  useEffect(() => {
-    console.log("user: ", user)
-  })
   
   useEffect(() => {
     
@@ -106,7 +106,6 @@ const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHa
   }
   
   
-
   return (
     <section className="section">
       <div className="products-container">    
@@ -123,14 +122,13 @@ const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHa
                 />
             ))
             : warning()
-
         : 
         productList.length > 0
           ? currentData().map((product, i) => (
               product._id === currentExchangingId ?
-              exchangeIsLoading ? <h6>Canjeando...</h6> 
+              exchangeIsLoading ? <Exchanging key={i} /> 
                 : 
-                exchangeHasError ? <h6>Error al canjear</h6> : <h6>{message}</h6> 
+                exchangeHasError ? <ErrorExchange key={i} message={message}/> : <SuccessExchange key={i} message={message}/>
 
               :
               product._id === currentId ?

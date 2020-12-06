@@ -25,7 +25,6 @@ const Sorter = () => {
   const [open, setOpen] = useState(false);
 
   const handleChange = ({target: {value}}) => {
-    console.log("value en Sorter: ", value)
     setSort(value);
   };
 

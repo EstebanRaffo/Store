@@ -1,5 +1,5 @@
 import React, {useState, useRef, useEffect} from 'react';
-import { addPoints, getUser } from "../actions/actions";
+import { addPoints } from "../actions/actions";
 import {useDispatch} from "react-redux";
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -47,11 +47,13 @@ function ConfirmationDialogRaw(props) {
   const handleOk = () => {
     onClose(value);
     dispatch(addPoints(+value));
-    dispatch(getUser());
   };
 
   const handleChange = ({target: {value}}) => {
-    setPoints(value);
+    console.log(value);
+    if(options.indexOf(value) > -1){
+      setPoints(value);
+    }
   };
 
   return (
