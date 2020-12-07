@@ -32,7 +32,6 @@ h4 {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: rgb(31, 151, 221);
   height: 80px;
   padding: 20px;
 }
@@ -44,7 +43,7 @@ h4 {
 }
 
 .navbar-item:hover {
-  background-color: rgba(100, 252, 189, 0.993);
+  background-color: rgba(100, 234, 252, 0.993);
   font-size: 19px;
   text-decoration: none;
 }
@@ -52,7 +51,6 @@ h4 {
 
 /************************************************ Banner **********************************************************************/
 .banner{
-  background-color: rgb(31, 151, 221);
   padding: 2px;
   width: 100%;
 }

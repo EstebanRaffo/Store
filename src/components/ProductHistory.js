@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
     media: {
       height: 0,
       paddingTop: '56.25%',
-      margin: '5%'
+      margin: '5%',
+      borderRadius: '10px'
     },
     expand: {
       transform: 'rotate(0deg)',
@@ -53,14 +54,14 @@ const Product = ({ name, date, price, photo, category }) => {
       />
       <Divider variant="middle" />
       <CardContent>
-        <Typography variant="subtitle2" color="primary">
+        <Typography variant="subtitle2" color="textSecondary">
           {category}
         </Typography>
         <Typography variant="body2" component="span" display="block">
-          Puntos: {price}
+          {price} puntos
         </Typography>
-        <Typography variant="subtitle2" color="primary">
-            {`Canjeado el ${Moment(date).format("DD/MM/YYYY")}`}
+        <Typography variant="subtitle2" color="secondary">
+            {`Canjeado el ${Moment(date).format("DD/MM/YYYY")} a las ${Moment(date).format("LT")} hs`}
         </Typography> 
       </CardContent>
     </Card>

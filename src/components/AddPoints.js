@@ -14,6 +14,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Chip from "@material-ui/core/Chip";
 import Avatar from "@material-ui/core/Avatar";
 import AddIcon from "@material-ui/icons/Add";
+import Coin from "./Coin";
 
 
 const options = [
@@ -81,10 +82,10 @@ function ConfirmationDialogRaw(props) {
         </RadioGroup>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={handleCancel} color="primary">
+        <Button autoFocus variant="contained" color="secondary" onClick={handleCancel}>
           Cancelar
         </Button>
-        <Button onClick={handleOk} color="primary">
+        <Button variant="contained" color="primary" onClick={handleOk}>
           Sumar
         </Button>
       </DialogActions>
@@ -126,16 +127,20 @@ export default function ConfirmationDialog() {
     }
   };
 
+  const handleDelete = () => {
+    return
+  }
+
   return (
     <div className={classes.root}>
         <Chip
-            avatar={
-              <Avatar>
-                  <AddIcon />
-              </Avatar>
-            }
-            label="SUMA PUNTOS"
-            onClick={() => handleClickListItem()}
+          icon={<AddIcon />}
+          label="Sumar Puntos"
+          clickable
+          color="primary"
+          onClick={() => handleClickListItem()}
+          onDelete={() => handleDelete()}
+          deleteIcon={<Coin />}
         />
         <ConfirmationDialogRaw
           classes={{

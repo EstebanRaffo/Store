@@ -244,8 +244,9 @@ export const fetchHistory = (url) => {
       })
       .then((response) => response.json())
       .then((history) => {
-        const historyFiltered = history.slice(0, 64);
+        const historyFiltered = history.slice(-32);
         dispatch(loadingHistorySuccess(historyFiltered));
+        dispatch(getUser());
       })
       .catch(() => dispatch(loadingError(true)));
   };
