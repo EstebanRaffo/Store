@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import User from "../containers/User";
 import AddPoints from "./AddPoints";
 
-import { Switch } from "@material-ui/core";
+import { Switch, FormControlLabel } from "@material-ui/core";
 import {CustomThemeContext} from "../themes/CustomThemeProvider";
+
+
 
 const Header = () => {
   const { setTheme } = useContext(CustomThemeContext);
@@ -25,16 +27,23 @@ const Header = () => {
       </div>
       <div className="navbar-item">
         <Link to="/user/history">
-          Historial
+          Canjes
         </Link>
       </div>
       <AddPoints/>
-      <Switch
-        onChange={handleThemeChange}
-        name="checkedA"
-        inputProps={{ 'aria-label': 'secondary checkbox' }}
-      />
       <User/>              
+      <FormControlLabel
+        control={
+          <Switch
+          onChange={handleThemeChange}
+          name="checkedA"
+          color="primary"
+          inputProps={{ 'aria-label': 'secondary checkbox' }}
+          />
+        }
+        label="Theme"
+        labelPlacement='top'
+      />  
     </div>
   );
 };

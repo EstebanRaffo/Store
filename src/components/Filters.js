@@ -11,13 +11,17 @@ const Filters = () => {
   const {historyQuery} = useContext(AppContext);
   
   return (
-    <div className="filters">
-      <FilterByName/>
-      <FilterByPrice/>
-      <FilterByCategory/>
-      <Sorter/>
-      { historyQuery ? <FilterByDate /> : "" }
-    </div>
+    <>
+      <div className="filters">
+        <FilterByName/>
+        <FilterByCategory/>
+        <FilterByPrice/>
+        <Sorter/>
+      </div>
+      <div className="date-filters">
+        { historyQuery ? <FilterByDate /> : "" }
+      </div>
+    </>
   );
 };
 

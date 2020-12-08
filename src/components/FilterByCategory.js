@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const FilterByCategory = ({products, history}) => {
-    const {searchCategory, setCategories, historyQuery} = useContext(AppContext);
+    const {setCategories, historyQuery} = useContext(AppContext);
     const classes = useStyles();
 
     let categories = [];

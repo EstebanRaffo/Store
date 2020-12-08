@@ -12,7 +12,6 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Chip from "@material-ui/core/Chip";
-import Avatar from "@material-ui/core/Avatar";
 import AddIcon from "@material-ui/icons/Add";
 import Coin from "./Coin";
 
@@ -51,7 +50,6 @@ function ConfirmationDialogRaw(props) {
   };
 
   const handleChange = ({target: {value}}) => {
-    console.log(value);
     if(options.indexOf(value) > -1){
       setPoints(value);
     }
@@ -108,6 +106,9 @@ const useStyles = makeStyles((theme) => ({
     width: '80%',
     maxHeight: 435,
   },
+  coin: {
+    width: "25%",
+  }
 }));
 
 export default function ConfirmationDialog() {

@@ -5,7 +5,7 @@ import { getHistory } from "../actions/actions";
 import { AppContext } from "../components/ContextProvider";
 
 
-const History = ({ getHistory, match }) => {
+const History = ({ getHistory }) => {
   const {setHistoryQuery} = useContext(AppContext);
   
   useEffect(() => {
@@ -18,7 +18,7 @@ const History = ({ getHistory, match }) => {
     <div className="home">
       <hr></hr>
       <h3>Canjes Realizados</h3>
-      <Products match={match} />
+      <Products/>
     </div>
   );
 };

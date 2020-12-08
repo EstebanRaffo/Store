@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import { AppContext } from "../components/ContextProvider";
 
 const IconBuy = ({ productId }) => {
-    const {currentId, setCurrentId} = useContext(AppContext);
+    const {setCurrentId} = useContext(AppContext);
 
     return (
         <div onClick={() => setCurrentId(productId)}>

@@ -4,13 +4,11 @@ import { AppContext } from "../components/ContextProvider";
 
 
 const IconExchange = () => {
-    const {currentId, setCurrentId} = useContext(AppContext);
+    const {setCurrentId} = useContext(AppContext);
 
     return(
         <div onClick={() => setCurrentId("")}>
             <svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <title>Cancelar</title>
-                <desc>Created with Sketch.</desc>
                 <defs>
                     <filter x="-9.1%" y="-9.1%" width="128.3%" height="128.3%" filterUnits="objectBoundingBox" id="filter-1">
                         <feOffset dx="2" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>

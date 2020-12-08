@@ -3,7 +3,7 @@ import React from "react";
 import Coin from "./Coin";
 import UserLoader from "./UserLoader";
 import UserError from "./UserError";
-import {Chip} from '@material-ui/core';
+import {Chip, Avatar} from '@material-ui/core';
 
 const UserData = ({user, hasError, isLoading}) => {
 
@@ -15,10 +15,22 @@ const UserData = ({user, hasError, isLoading}) => {
     return <UserLoader />
   }
 
+  const handleDelete = () => {
+    return
+  }
+
   return (
     <div className="user-data">
-      <h4>{user.name}</h4>
-      <Chip avatar={<Coin/>} label={user.points} />
+      <div>
+        <h3>{user.name}</h3>
+      </div>
+      <Chip 
+        avatar={<Avatar>P</Avatar>}
+        label={user.points}
+        onDelete={handleDelete}
+        deleteIcon={<Coin/>}
+        color="primary"
+      />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useContext} from 'react';
 import { AppContext } from "./ContextProvider";
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -39,7 +39,7 @@ export default function DatePickers() {
                 onChange={handleFrom}
                 className={classes.textField}
                 InputLabelProps={{
-                shrink: true,
+                    shrink: true,
                 }}
             />
             <TextField
@@ -50,7 +50,7 @@ export default function DatePickers() {
                 onChange={handleTo}
                 className={classes.textField}
                 InputLabelProps={{
-                shrink: true,
+                    shrink: true,
                 }}
             />
         </form>

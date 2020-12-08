@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: #e9e9e9;
+  background-color: #ededed;
   padding: 30px;
 }
 
@@ -21,19 +21,24 @@ body {
 }
 
 .home h1,
-h4 {
+h3 {
   text-align: left;
-  color: white;
+  color: rgb(7, 137, 160);
 }
 
 
 /************************************************ Header **********************************************************************/
 .header{
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   height: 80px;
   padding: 20px;
+}
+
+a{
+  color: #007bff;
+  text-decoration: none;
 }
 
 .navbar-item {
@@ -43,9 +48,15 @@ h4 {
 }
 
 .navbar-item:hover {
-  background-color: rgba(100, 234, 252, 0.993);
+  background-color: rgba(100, 252, 189, 0.993);
   font-size: 19px;
-  text-decoration: none;
+}
+
+
+/*************************************************** UserData ***************************************************************/
+.user-data{
+  display: flex;
+  align-items: center;
 }
 
 
@@ -64,8 +75,14 @@ h4 {
 .filters{
   display: flex;
   justify-content: space-around;
+  align-items: center;
   flex-wrap: wrap;
   padding: 15px;
+}
+
+.date-filters{
+  display: flex;
+  justify-content: left;
 }
 
 
@@ -77,17 +94,13 @@ h4 {
   padding: 10px;
 }
 
-/*************************************************** UserData ***************************************************************/
-.user-data{
-  display: flex;
-  align-items: center;
-}
 
 /*************************************************** SuccessIcon **********************************************************/
 .result-redeem img{
   width: 100%;
   border-radius: 10px;
 }
+
 
 /*********************************************** LoadingExchange ***********************************************************/
 .lds-spinner {
@@ -180,7 +193,7 @@ h4 {
 }
 .lds-ripple div {
   position: absolute;
-  border: 4px solid #fff;
+  border: 4px solid rgb(12, 127, 194);
   opacity: 1;
   border-radius: 50%;
   animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
