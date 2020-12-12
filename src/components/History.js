@@ -17,7 +17,6 @@ const History = ({ getHistory }) => {
   return (
     <div className="home">
       <hr></hr>
-      <h3>Canjes Realizados</h3>
       <Products/>
     </div>
   );

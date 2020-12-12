@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect} from 'react';
 import { addPoints } from "../actions/actions";
 import {useDispatch} from "react-redux";
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -111,6 +111,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
+const NewChip = withStyles({
+  root: {
+    backgroundColor: '#0065d1',
+    color: 'white'
+  },
+})(Chip);
+
+
 export default function ConfirmationDialog() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -134,11 +143,10 @@ export default function ConfirmationDialog() {
 
   return (
     <div className={classes.root}>
-        <Chip
+        <NewChip
           icon={<AddIcon />}
           label="Sumar Puntos"
           clickable
-          color="primary"
           onClick={() => handleClickListItem()}
           onDelete={() => handleDelete()}
           deleteIcon={<Coin />}

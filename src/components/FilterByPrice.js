@@ -1,6 +1,7 @@
 import React, {useState, useContext} from 'react';
 import { AppContext } from "./ContextProvider";
 import {makeStyles, Typography, Slider, InputAdornment, TextField} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import Coin from "./Coin";
 
 const MIN_VALUE = 50;
@@ -53,7 +54,8 @@ export default function RangeSlider() {
       <Typography id="range-slider" >
         Puntos
       </Typography>
-      <Slider
+      <PrettoSlider
+        className={classes.rail}
         min={MIN_VALUE}
         max={MAX_VALUE}
         value={value}
@@ -94,3 +96,32 @@ export default function RangeSlider() {
   );
 }
 
+const PrettoSlider = withStyles({
+  root: {
+    color: '#007bff',
+    height: 8,
+  },
+  thumb: {
+    height: 24,
+    width: 24,
+    backgroundColor: '#fff',
+    border: '2px solid currentColor',
+    marginTop: -8,
+    marginLeft: -12,
+    '&:focus, &:hover, &$active': {
+      boxShadow: 'inherit',
+    },
+  },
+  active: {},
+  valueLabel: {
+    left: 'calc(-50% + 4px)',
+  },
+  track: {
+    height: 8,
+    borderRadius: 4,
+  },
+  rail: {
+    height: 8,
+    borderRadius: 4,
+  },
+})(Slider);
