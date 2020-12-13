@@ -6,9 +6,8 @@ const IconBuy = ({ productId }) => {
 
     return (
         <div onClick={() => setCurrentId(productId)}>
-            <svg width="42px" height="42px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <title>Comprar</title>
-                <desc>Created with Sketch.</desc>
+            <svg width="50px" height="50px" viewBox="-4 0 50 40" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <title>Canje</title>
                 <defs>
                     <radialGradient cx="50%" cy="50.8764901%" fx="50%" fy="50.8764901%" r="79.8469947%" id="radialGradient-1">
                         <stop stopColor="#0AD4FA" offset="0%"></stop>

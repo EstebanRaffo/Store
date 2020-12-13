@@ -10,7 +10,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 
@@ -23,9 +22,16 @@ const useStyles = makeStyles((theme) => ({
       width: '23%',
       margin: '10px',
       padding: '5px',
-      backgroundColor: 'rgb(15, 173, 236, 0.705)'
+      backgroundColor: 'rgb(15, 173, 236, 0.7)'
+    },
+    header: {
+      height: '15%',
+      margin: '10px',
+      padding: '5px'
     },
     media: {
+      paddingTop: '56.25%',
+      borderRadius: '10px',
       margin: '5%'
     },
     expand: {
@@ -38,12 +44,10 @@ const useStyles = makeStyles((theme) => ({
     expandOpen: {
       transform: 'rotate(180deg)',
     },
-    avatar: {
-      backgroundColor: red[500],
-    },
+
 }));
 
-const Exchange = ({productId, name, price, category}) => {
+const Exchange = ({productId, name, price, category, photo}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const {setCurrentId, setCurrentExchangingId} = useContext(AppContext);
@@ -58,13 +62,25 @@ const Exchange = ({productId, name, price, category}) => {
     return(
         <Card className={classes.root}>
             <CardHeader
-                avatar={
-                <IconButton aria-label="add to favorites">
-                    <IconExchange/>
-                </IconButton>
+                className={classes.header}
+                action={
+                  <IconButton aria-label="add to favorites">
+                      <IconExchange/>
+                  </IconButton>
                 }
             />
-            <CardMedia className={classes.media}>
+            <CardMedia 
+              className={classes.media} 
+              image={photo}
+            />
+            <Divider variant="middle" />
+            <CardContent>
+                {/* <Typography variant="subtitle2" color="primary">
+                    {category}
+                </Typography>
+                <Typography variant="body2" component="span" display="block">
+                    {name} 
+                </Typography> */}
                 <Typography variant="h4" align="center">
                     {price} 
                     <Coin/>
@@ -74,15 +90,6 @@ const Exchange = ({productId, name, price, category}) => {
                   onClick={handleClick}
                   clickable 
                 />
-            </CardMedia>
-            <Divider variant="middle" />
-            <CardContent>
-                <Typography variant="subtitle2" color="primary">
-                    {category}
-                </Typography>
-                <Typography variant="body2" component="span" display="block">
-                    {name} 
-                </Typography>
             </CardContent>
         </Card>
     )

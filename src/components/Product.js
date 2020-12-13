@@ -19,11 +19,18 @@ const useStyles = makeStyles((theme) => ({
       margin: '10px',
       padding: '5px'
     },
+    header: {
+      height: '15%',
+      margin: '10px',
+      padding: '5px'
+    },
     media: {
-      height: 0,
       paddingTop: '56.25%',
-      margin: '5%',
-      borderRadius: '10px'
+      borderRadius: '10px',
+      margin: '5%'
+    },
+    content: {
+      paddingBottom: '2%'
     },
     expand: {
       transform: 'rotate(0deg)',
@@ -34,9 +41,6 @@ const useStyles = makeStyles((theme) => ({
     },
     expandOpen: {
       transform: 'rotate(180deg)',
-    },
-    avatar: {
-      backgroundColor: red[500],
     },
   }));
 
@@ -51,7 +55,8 @@ const Product = ({ productId, name, enabledPoints, price, photo, category }) => 
   return (
     <Card className={classes.root}>
       <CardHeader
-        avatar={
+        className={classes.header}
+        action={
           <IconButton aria-label="add to favorites">
             {sufficientBalance() ? <IconBuy productId={productId} /> : <LackPoints delta={price - enabledPoints} />}
           </IconButton>
@@ -63,12 +68,15 @@ const Product = ({ productId, name, enabledPoints, price, photo, category }) => 
         title={name}
       />
       <Divider variant="middle" />
-      <CardContent>
+      <CardContent className={classes.content}>
         <Typography variant="subtitle2" color="primary">
           {category}
         </Typography>
-        <Typography variant="body2" component="span" display="block">
-          {name} | Puntos: {price}
+        <Typography variant="h6" >
+          {name} 
+        </Typography>
+        <Typography variant="subtitle2" color="secondary">
+          {price} puntos
         </Typography>
       </CardContent>
     </Card>
