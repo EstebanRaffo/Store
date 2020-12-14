@@ -13,9 +13,9 @@ const Filters = () => {
   return (
     <>
       <div className="filters">
+        <FilterByPrice/>
         <FilterByName/>
         <FilterByCategory/>
-        <FilterByPrice/>
         <Sorter/>
       </div>
       <div className="date-filters">

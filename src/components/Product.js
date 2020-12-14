@@ -5,7 +5,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import IconBuy from "./IconBuy";
@@ -17,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
       width: '23%',
       margin: '10px',
-      padding: '5px'
     },
     header: {
       height: '15%',
@@ -29,8 +27,13 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '10px',
       margin: '5%'
     },
-    content: {
-      paddingBottom: '2%'
+    category: {
+      color: 'rgb(19, 113, 175)',
+      fontFamily: 'Lucida Console'
+    },
+    price: {
+      color: 'rgb(0, 160, 107)',
+      fontWeight: 'bold'
     },
     expand: {
       transform: 'rotate(0deg)',
@@ -68,14 +71,14 @@ const Product = ({ productId, name, enabledPoints, price, photo, category }) => 
         title={name}
       />
       <Divider variant="middle" />
-      <CardContent className={classes.content}>
-        <Typography variant="subtitle2" color="primary">
+      <CardContent>
+        <Typography variant="body1" className={classes.category}>
           {category}
         </Typography>
-        <Typography variant="h6" >
+        <Typography variant="h6">
           {name} 
         </Typography>
-        <Typography variant="subtitle2" color="secondary">
+        <Typography variant="subtitle1" className={classes.price}>
           {price} puntos
         </Typography>
       </CardContent>

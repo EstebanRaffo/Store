@@ -128,7 +128,7 @@ const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHa
               product._id === currentExchangingId ?
               exchangeIsLoading ? <Exchanging key={i} /> 
                 : 
-                exchangeHasError ? <ErrorExchange key={i} message={message}/> : <SuccessExchange key={i} message={message}/>
+                exchangeHasError ? <ErrorExchange key={i} message={message}/> : <SuccessExchange key={i} />
 
               :
               product._id === currentId ?

@@ -8,7 +8,6 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 
 import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
@@ -24,6 +23,11 @@ const useStyles = makeStyles((theme) => ({
     media: {
       margin: '5%'
     },
+    chip: {
+      width: '90%',
+      color: 'white',
+      backgroundColor: '#777777'
+    },
     expand: {
       transform: 'rotate(0deg)',
       marginLeft: 'auto',
@@ -34,12 +38,9 @@ const useStyles = makeStyles((theme) => ({
     expandOpen: {
       transform: 'rotate(180deg)',
     },
-    avatar: {
-      backgroundColor: red[500],
-    },
 }));
 
-const SuccessExchange = ({message}) => {
+const SuccessExchange = () => {
     const classes = useStyles();
     const {setCurrentExchangingId} = useContext(AppContext);
 
@@ -53,16 +54,17 @@ const SuccessExchange = ({message}) => {
                 <Typography variant="h4" align="center"> 
                     <SuccessIcon />
                 </Typography>
-                <Chip 
-                  label="Continuar" 
+                <Chip
+                  className={classes.chip}
+                  label="Canjear nuevamente" 
                   onClick={() => setCurrentExchangingId("")}
                   clickable 
                 />
             </CardMedia>
             <Divider variant="middle" />
             <CardContent>
-                <Typography variant="body2" component="span" display="block">
-                    {message} 
+                <Typography variant="h6">
+                    Canje Exitoso ! 
                 </Typography>
             </CardContent>
         </Card>

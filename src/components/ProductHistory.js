@@ -4,7 +4,6 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import Divider from '@material-ui/core/Divider';
 import Moment from "moment";
 import "moment/locale/es";
@@ -13,14 +12,24 @@ import "moment/locale/es";
 const useStyles = makeStyles((theme) => ({
     root: {
       width: '23%',
-      margin: '10px',
-      padding: '5px'
+      margin: '10px'
     },
     media: {
-      height: 0,
       paddingTop: '56.25%',
-      margin: '5%',
-      borderRadius: '10px'
+      borderRadius: '10px',
+      margin: '5%'
+    },
+    category: {
+      color: 'rgb(19, 113, 175)',
+      fontFamily: 'Lucida Console'
+    },
+    price: {
+      color: 'rgb(0, 160, 107)',
+      fontWeight: 'bold'
+    },
+    date: {
+      fontFamily: 'Vendana, Helvetica, sans-serif',
+      fontStyle: 'italic'
     },
     expand: {
       transform: 'rotate(0deg)',
@@ -31,10 +40,7 @@ const useStyles = makeStyles((theme) => ({
     },
     expandOpen: {
       transform: 'rotate(180deg)',
-    },
-    avatar: {
-      backgroundColor: red[500],
-    },
+    }
   }));
 
 const Product = ({ name, date, price, photo, category }) => {
@@ -54,13 +60,13 @@ const Product = ({ name, date, price, photo, category }) => {
       />
       <Divider variant="middle" />
       <CardContent>
-        <Typography variant="subtitle2" color="textSecondary">
+        <Typography variant="body1" className={classes.category}>
           {category}
         </Typography>
-        <Typography variant="body2" component="span" display="block">
+        <Typography variant="subtitle1" className={classes.price}>
           {price} puntos
         </Typography>
-        <Typography variant="subtitle2" color="secondary">
+        <Typography variant="subtitle1" className={classes.date}>
             {`Canjeado el ${Moment(date).format("DD/MM/YYYY")} a las ${Moment(date).format("LT")} hs`}
         </Typography> 
       </CardContent>

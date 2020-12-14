@@ -1,8 +1,6 @@
-import React, {useContext} from "react";
+import React from "react";
 import IconExchange from "./IconExchange";
-import { exchange } from "../actions/actions";
-import {useDispatch} from "react-redux";
-import { AppContext } from "../components/ContextProvider";
+import Redeem from "./Redeem";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -13,16 +11,14 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 
-import Coin from "./Coin";
-import Chip from '@material-ui/core/Chip';
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
       width: '23%',
       margin: '10px',
-      padding: '5px',
-      backgroundColor: 'rgb(15, 173, 236, 0.7)'
+      backgroundColor: 'rgb(15, 173, 236, 0.7)',
+      position: 'relative'
     },
     header: {
       height: '15%',
@@ -32,7 +28,12 @@ const useStyles = makeStyles((theme) => ({
     media: {
       paddingTop: '56.25%',
       borderRadius: '10px',
-      margin: '5%'
+      margin: '5%',
+      opacity: '0.3'
+    },
+    category: {
+      color: '#585858',
+      fontFamily: 'Lucida Console'
     },
     expand: {
       transform: 'rotate(0deg)',
@@ -44,20 +45,10 @@ const useStyles = makeStyles((theme) => ({
     expandOpen: {
       transform: 'rotate(180deg)',
     },
-
 }));
 
 const Exchange = ({productId, name, price, category, photo}) => {
     const classes = useStyles();
-    const dispatch = useDispatch();
-    const {setCurrentId, setCurrentExchangingId} = useContext(AppContext);
-
-    const handleClick = () => {
-        dispatch(exchange(productId));
-        setCurrentId("");
-        setCurrentExchangingId(productId);
-    };
-
 
     return(
         <Card className={classes.root}>
@@ -69,27 +60,22 @@ const Exchange = ({productId, name, price, category, photo}) => {
                   </IconButton>
                 }
             />
+            <Redeem productId={productId} price={price}/>
             <CardMedia 
               className={classes.media} 
               image={photo}
             />
             <Divider variant="middle" />
             <CardContent>
-                {/* <Typography variant="subtitle2" color="primary">
-                    {category}
+                <Typography variant="body1" className={classes.category}>
+                  {category}
                 </Typography>
-                <Typography variant="body2" component="span" display="block">
-                    {name} 
-                </Typography> */}
-                <Typography variant="h4" align="center">
-                    {price} 
-                    <Coin/>
+                <Typography variant="h6">
+                  {name} 
                 </Typography>
-                <Chip 
-                  label="Canjear" 
-                  onClick={handleClick}
-                  clickable 
-                />
+                <Typography variant="subtitle1" color="primary">
+                  {price} puntos
+                </Typography>
             </CardContent>
         </Card>
     )

@@ -4,11 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'center'
-  },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
@@ -31,7 +26,7 @@ export default function DatePickers() {
     }
 
     return (
-        <form className={classes.container} noValidate>
+        <form noValidate>
             <TextField
                 id="date"
                 label="Desde"

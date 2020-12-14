@@ -42,7 +42,7 @@ const Sorter = () => {
         Ordenar Por
       </Button>
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">Precio</InputLabel>
+        <InputLabel id="demo-controlled-open-select-label">Puntos</InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
@@ -55,8 +55,8 @@ const Sorter = () => {
           <MenuItem value={0}>
             <em>Ninguno</em>
           </MenuItem>
-          <MenuItem value={10}>Menor Precio</MenuItem>
-          <MenuItem value={20}>Mayor Precio</MenuItem>
+          <MenuItem value={10}>Menor Puntaje</MenuItem>
+          <MenuItem value={20}>Mayor Puntaje</MenuItem>
         </Select>
       </FormControl>
     </div>
