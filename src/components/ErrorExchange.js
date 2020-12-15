@@ -1,16 +1,10 @@
-import React, {useContext} from "react";
+import React, {useEffect, useContext} from "react";
+import { getUser } from "../actions/actions";
 import { AppContext } from "../components/ContextProvider";
-import ErrorIcon from "./ErrorIcon";
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
+import { Card, CardHeader, CardMedia, CardContent, Typography, Divider, Chip } from '@material-ui/core';
 
-import Divider from '@material-ui/core/Divider';
-
-import Chip from '@material-ui/core/Chip';
+import ErrorIcon from '@material-ui/icons/Error';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -18,10 +12,24 @@ const useStyles = makeStyles((theme) => ({
       width: '23%',
       margin: '10px',
       padding: '5px',
-      backgroundColor: 'rgb(240, 11, 11)'
+      backgroundColor: 'rgb(240, 11, 11, 0.95)'
+    },
+    header: {
+      height: '15%',
+      margin: '10px',
+      padding: '5px'
     },
     media: {
       margin: '5%'
+    },
+    error: {
+      fontSize: '232%'
+    },
+    chip: {
+      width: '90%',
+      color: 'white',
+      backgroundColor: '#777777',
+      fontSize: '110%'
     },
     expand: {
       transform: 'rotate(0deg)',
@@ -32,33 +40,36 @@ const useStyles = makeStyles((theme) => ({
     },
     expandOpen: {
       transform: 'rotate(180deg)',
-    },
-    avatar: {
-      backgroundColor: red[500],
-    },
+    }
 }));
 
-const ErrorExchange = ({message}) => {
+const ErrorExchange = () => {
     const classes = useStyles();
     const {setCurrentExchangingId} = useContext(AppContext);
 
+    useEffect(() => {
+      getUser();
+    })
+
     return(
         <Card className={classes.root}>
+            <CardHeader className={classes.header}/>
             <CardMedia className={classes.media}>
                 <Typography variant="h4" align="center"> 
-                    <ErrorIcon />
+                    <ErrorIcon className={classes.error}/>
                 </Typography>
-                <Chip 
-                  label="Reintentar" 
-                  onClick={() => setCurrentExchangingId("")}
-                  clickable 
-                />
+                <Typography variant="h6">
+                    Ocurrió un error al procesar el canje
+                </Typography>
             </CardMedia>
             <Divider variant="middle" />
             <CardContent>
-                <Typography variant="body2" component="span" display="block">
-                    {message} 
-                </Typography>
+              <Chip 
+                  className={classes.chip}
+                  label="Reintentar Canje" 
+                  onClick={() => setCurrentExchangingId("")}
+                  clickable 
+                />
             </CardContent>
         </Card>
     )

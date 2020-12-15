@@ -1,13 +1,9 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
+import {Card, CardMedia, CardContent, Typography, Divider} from '@material-ui/core';
+
 import Moment from "moment";
 import "moment/locale/es";
-
 
 const useStyles = makeStyles((theme) => ({
     root: {

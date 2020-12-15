@@ -1,6 +1,6 @@
 import React from "react";
 
-const UserLoader = () => (
+const LoadingUser = () => (
     <div className="lds-ripple">
         <div></div>
         <div></div>
@@ -8,4 +8,4 @@ const UserLoader = () => (
 )
 
 
-export default UserLoader;
+export default LoadingUser;

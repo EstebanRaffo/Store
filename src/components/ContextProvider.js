@@ -17,8 +17,8 @@ export default function AppProvider({ children }) {
   const [currentExchangingId, setCurrentExchangingId] = useState("");
 
   const today = new Date();
-  const initDateFrom = Moment(today.valueOf()).format("YYYY-MM-DD");
-  const initDateTo = Moment(today.valueOf() + 2592000000).format("YYYY-MM-DD");
+  const initDateFrom = Moment(today.valueOf()).format("YYYY-MM-DD"); 
+  const initDateTo = Moment(today.valueOf()).format("YYYY-MM-DD"); 
 
   const [dateFrom, setDateFrom] = useState(initDateFrom);
   const [dateTo, setDateTo] = useState(initDateTo);

@@ -178,7 +178,7 @@ export const loadingExchangeInProgress = (bool) => ({
 });
 
 export const exchange = (productId) => {
-  const url = "https://coding-challenge-api.aerolab.co/redeem";
+  const url = "https://coding-challenge-api.aerolab.co/redee";
   const data = {productId: productId}
   return postExchange(url, data);
 }

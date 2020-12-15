@@ -1,17 +1,10 @@
 import React from "react";
-import { withStyles } from '@material-ui/core/styles';
-
+import NewChip from "./NewChip";
 import Coin from "./Coin";
-import UserLoader from "./UserLoader";
+import LoadingUser from "./LoadingUser";
 import UserError from "./UserError";
-import {Chip, Avatar} from '@material-ui/core';
+import {Avatar} from '@material-ui/core';
 
-const NewChip = withStyles({
-  root: {
-    backgroundColor: '#0065d1',
-    color: 'white'
-  },
-})(Chip);
 
 const UserData = ({user, hasError, isLoading}) => {
 
@@ -20,7 +13,7 @@ const UserData = ({user, hasError, isLoading}) => {
   }
 
   if (isLoading) {
-    return <UserLoader />
+    return <LoadingUser />
   }
 
   const handleDelete = () => {

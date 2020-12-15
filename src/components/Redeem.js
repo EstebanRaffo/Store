@@ -1,15 +1,12 @@
 import React, {useContext} from "react";
 
 import { exchange } from "../actions/actions";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { AppContext } from "../components/ContextProvider";
+import Coin from "./Coin";
 
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import Typography from '@material-ui/core/Typography';
-
-import Coin from "./Coin";
-import Chip from '@material-ui/core/Chip';
+import { Card, Typography, Chip } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({

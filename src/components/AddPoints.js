@@ -1,19 +1,14 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { addPoints } from "../actions/actions";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import PropTypes from 'prop-types';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Dialog from '@material-ui/core/Dialog';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Chip from "@material-ui/core/Chip";
+
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, DialogTitle, DialogContent, DialogActions, Dialog, RadioGroup, Radio, FormControlLabel} from '@material-ui/core';
 import AddIcon from "@material-ui/icons/Add";
+
 import Coin from "./Coin";
+import NewChip from "./NewChip";
 
 
 const options = [
@@ -112,13 +107,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const NewChip = withStyles({
-  root: {
-    backgroundColor: '#0065d1',
-    color: 'white'
-  },
-})(Chip);
-
 
 export default function ConfirmationDialog() {
   const classes = useStyles();
@@ -145,7 +133,7 @@ export default function ConfirmationDialog() {
     <div className={classes.root}>
         <NewChip
           icon={<AddIcon />}
-          label="Sumar Puntos"
+          label="Sumá Puntos"
           clickable
           onClick={() => handleClickListItem()}
           onDelete={() => handleDelete()}

@@ -2,9 +2,7 @@ import React, {useContext} from "react";
 import { AppContext } from "./ContextProvider";
 
 import { fade, makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-
-import InputBase from '@material-ui/core/InputBase';
+import { AppBar, InputBase } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
 

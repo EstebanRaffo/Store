@@ -7,17 +7,19 @@ import ProductHistory from "./ProductHistory";
 import usePagination from "./Pagination";
 import IconNext from "./IconNext";
 import IconPrev from "./IconPrev";
-import {IconButton} from '@material-ui/core';
-
-import Moment from "moment";
-import "moment/locale/es";
 import SuccessExchange from "./SuccessExchange";
 import ErrorExchange from "./ErrorExchange";
 import Exchanging from "./Exchanging";
+import LoadingProducts from "./LoadingProducts";
 
-const ITEMSPERPAGE = 16;
+import { IconButton } from '@material-ui/core';
+import Moment from "moment";
+import "moment/locale/es";
+
+const ITEMS_PER_PAGE = 16;
 
 const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHasError, exchangeIsLoading, exchange: {message} }) => {
+  
   const {searchTerm, priceRange, searchCategory, sort, currentId, historyQuery, dateFrom, dateTo, currentPage, currentExchangingId} = useContext(AppContext);
   let productsFiltered = useRef(null);
   let historyFiltered = useRef(null);
@@ -40,6 +42,9 @@ const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHa
       if(searchCategory){
         historyFiltered.current = historyFiltered.current.filter(product => searchCategory.indexOf(product.category) > -1)
       }
+      
+      historyFiltered.current = historyFiltered.current.sort((b, a) => (a.createDate > b.createDate ? 1 : a.createDate < b.createDate ? -1 : 0))
+
       if(sort){
         if(sort === 10){
           historyFiltered.current = historyFiltered.current.sort((a, b) => (a.cost > b.cost ? 1 : a.cost < b.cost ? -1 : 0))
@@ -76,14 +81,14 @@ const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHa
     
   }, [searchTerm, priceRange, searchCategory, sort, products, history, historyQuery, dateFrom, dateTo]);
     
-  const paginate = usePagination(productList, historyList, ITEMSPERPAGE);
+  const paginate = usePagination(productList, historyList, ITEMS_PER_PAGE);
   const {currentData, currentHistoryData} = paginate; 
     
   const warning = () => {
     return (
       <article className="message is-warning">
         <div className="message-body">
-          No se han encontrado productos con los criterios definidos
+          No se encontraron productos con los criterios definidos
         </div>
       </article>
     );
@@ -91,18 +96,14 @@ const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHa
 
   if (hasError) {
       return (
-      <div>
-          <h6>Error al buscar las noticias</h6>
-      </div>
+        <div>
+            <h6>Ocurrió un error al buscar los productos</h6>
+        </div>
       );
   }
 
   if (isLoading) {
-      return (
-      <div>
-          <h2>Loading...</h2>
-      </div>
-      );
+      return <LoadingProducts />
   }
   
   
@@ -126,9 +127,9 @@ const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHa
         productList.length > 0
           ? currentData().map((product, i) => (
               product._id === currentExchangingId ?
-              exchangeIsLoading ? <Exchanging key={i} /> 
-                : 
-                exchangeHasError ? <ErrorExchange key={i} message={message}/> : <SuccessExchange key={i} />
+                exchangeHasError ? <ErrorExchange key={i} message={message}/>
+              : 
+                exchangeIsLoading ? <Exchanging key={i} /> : <SuccessExchange key={i} />
 
               :
               product._id === currentId ?
@@ -154,18 +155,24 @@ const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHa
           : warning() 
         }
       </div>
-      {currentPage === 1 ? (
-          <IconButton aria-label="delete">
-            <IconNext />
-          </IconButton>
-        ) : (
-          <IconButton aria-label="delete">
-            <IconPrev />
-          </IconButton>
-      )}
+      <hr></hr>
+      <div>
+          {currentPage === 1 ? (
+              <div>
+                <IconButton aria-label="next">
+                  <IconNext />
+                </IconButton>
+              </div>
+            ) : (
+              <div>
+                <IconButton aria-label="prev">
+                  <IconPrev />
+                </IconButton>
+              </div>
+          )}
+      </div>
     </section>
   );
 }
-
 
 export default ProductsList;

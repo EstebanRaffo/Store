@@ -1,7 +1,7 @@
 import React from "react";
 import { Chip } from '@material-ui/core';
-import Coin from "./Coin";
 import { withStyles } from '@material-ui/core/styles';
+import Coin from "./Coin";
 
 
 const NewChip = withStyles({
@@ -18,11 +18,7 @@ const LackPoints = ({ delta }) => {
         return
     }
 
-    return <NewChip 
-                label={`Te faltan ${delta} puntos`}
-                onDelete={handleDelete}
-                deleteIcon={<Coin/>} 
-            />
+    return <NewChip label={`Te faltan ${delta} puntos`} onDelete={handleDelete} deleteIcon={<Coin/>} />
 }
 
 export default LackPoints;

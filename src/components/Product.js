@@ -1,15 +1,9 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Divider from '@material-ui/core/Divider';
+import {Card, CardHeader, CardMedia, CardContent, Typography, IconButton, Divider} from '@material-ui/core';
+
 import IconBuy from "./IconBuy";
 import LackPoints from "./LackPoints";
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -53,7 +47,6 @@ const Product = ({ productId, name, enabledPoints, price, photo, category }) => 
   const sufficientBalance = () => {
     return enabledPoints >= price;
   }
-
 
   return (
     <Card className={classes.root}>

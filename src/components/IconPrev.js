@@ -7,8 +7,7 @@ const IconPrev = () => {
     return (
         <div onClick={() => setCurrentPage(currentPage - 1)}>
             <svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <title>anterior</title>
-                <desc>Created with Sketch.</desc>
+                <title>Anterior</title>
                 <defs></defs>
                 <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                     <g id="Catalog-p2" transform="translate(-1200.000000, -512.000000)">
