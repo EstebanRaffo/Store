@@ -76,10 +76,10 @@ const Header = () => {
   return (
     <div className="header">
       <div className="navbar-item">
-        <Link to="/">Home</Link>
+        <Link to="/Store">Home</Link>
       </div>
       <div className="navbar-item">
-        <Link to="/user/history">
+        <Link to="/Store/user/history">
           Canjes
         </Link>
       </div>
