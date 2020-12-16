@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     expandOpen: {
       transform: 'rotate(180deg)',
     },
-  }));
+}));
 
 const Product = ({ productId, name, enabledPoints, price, photo, category }) => {
   const classes = useStyles();

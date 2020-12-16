@@ -3,14 +3,12 @@ import { Chip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Coin from "./Coin";
 
-
 const NewChip = withStyles({
     root: {
         color: 'white',
         backgroundColor: '#777777'
     },
 })(Chip);
-
 
 const LackPoints = ({ delta }) => {
 

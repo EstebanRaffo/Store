@@ -8,7 +8,6 @@ import SearchIcon from '@material-ui/icons/Search';
 
 
 const useStyles = makeStyles((theme) => ({
-
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,

@@ -16,29 +16,32 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const setCategoriesSelector = (products, history, historyQuery) => {
+  let categories = [];
+
+  if(historyQuery){
+    for(const product of history){
+      if(categories.indexOf(product.category) < 0){
+        categories.push(product.category)
+      }
+    }
+  }else{
+    for(const product of products){
+      if(categories.indexOf(product.category) < 0){
+        categories.push(product.category)
+      }
+    }
+  }
+
+  return categories;
+}
 
 const FilterByCategory = ({products, history}) => {
     const {setCategories, historyQuery} = useContext(AppContext);
     const classes = useStyles();
 
-    let categories = [];
-
-    if(historyQuery){
-      for(const product of history){
-        if(categories.indexOf(product.category) < 0){
-          categories.push(product.category)
-        }
-      }
-    }else{
-      for(const product of products){
-        if(categories.indexOf(product.category) < 0){
-          categories.push(product.category)
-        }
-      }
-    }
-
     const handleChange = (event, value) => {
-      setCategories(value);
+      value.length > 0 ? setCategories(value) : setCategories("")
     };
 
     return (
@@ -47,7 +50,7 @@ const FilterByCategory = ({products, history}) => {
           multiple
           limitTags={2}
           id="multiple-limit-tags"
-          options={categories}
+          options={setCategoriesSelector(products, history, historyQuery)}
           getOptionLabel={(option) => option}
           onChange={handleChange}
           renderInput={(params) => (
@@ -69,5 +72,6 @@ const mapStateToProps = (state) => {
     history: state.history
   }
 }
+
 
 export default connect(mapStateToProps)(FilterByCategory);

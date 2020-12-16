@@ -7,5 +7,4 @@ const LoadingUser = () => (
     </div>
 )
 
-
 export default LoadingUser;

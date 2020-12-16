@@ -44,7 +44,6 @@ const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHa
   
   
   useEffect(() => {
-    
     if(historyQuery){
       historyFiltered.current = history;
       historyFiltered.current = historyFiltered.current.filter(product => Moment(product.createDate).format("YYYY-MM-DD") >= dateFrom && Moment(product.createDate).format("YYYY-MM-DD") <= dateTo); 
@@ -111,7 +110,7 @@ const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHa
     );
   };
 
-  if (hasError) {
+  if(hasError) {
       return (
         <article className="message is-error">
           <div className="message-body">
@@ -126,7 +125,7 @@ const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHa
       );
   }
 
-  if (isLoading) {
+  if(isLoading) {
       return <LoadingProducts />
   }
   

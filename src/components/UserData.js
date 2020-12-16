@@ -9,7 +9,7 @@ import {Avatar} from '@material-ui/core';
 
 const UserData = ({user, hasError, isLoading, addPointsHasError}) => {
 
-  if (hasError) {
+  if(hasError) {
     return <ErrorUser />
   }
 
@@ -17,7 +17,7 @@ const UserData = ({user, hasError, isLoading, addPointsHasError}) => {
     return <ErrorAddPoints />
   }
 
-  if (isLoading) {
+  if(isLoading) {
     return <LoadingUser />
   }
 

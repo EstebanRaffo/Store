@@ -1,8 +1,6 @@
 import React, {useContext} from "react";
 import { AppContext } from "../components/ContextProvider";
 
-
-
 const IconExchange = () => {
     const {setCurrentId} = useContext(AppContext);
 
