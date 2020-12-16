@@ -13,8 +13,8 @@ const Main = () => (
     <Banner/>
     <Filters/>
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/user/history" component={History} />
+      <Route exact path="/Store" component={Home} />
+      <Route path="/Store/user/history" component={History} />
     </Switch>
   </>
 );
