@@ -96,6 +96,23 @@ a{
   padding: 10px;
 }
 
+.is-error{
+  display: flex;
+  justify-content: center;
+}
+
+.is-error h3{
+  color: #d50000
+}
+
+.is-warning h3{
+  color: #d48403
+}
+
+.change-page{
+  box-shadow: 5px 10px 8px #888888;
+  border-radius: 25px;
+}
 
 /*************************************************** SuccessIcon **********************************************************/
 
@@ -307,6 +324,6 @@ a{
 
 
 /*************************************************** UserError **********************************************************/
-.result-user img{
-  width: 100%;
+.error-user{
+  color: #d50000;
 }

@@ -1,6 +1,7 @@
 import React, {useState, useRef, useEffect, useContext} from "react";
 import { AppContext } from "../components/ContextProvider";
-
+import Moment from "moment";
+import "moment/locale/es";
 import Product from "./Product";
 import Exchange from "./Exchange";
 import ProductHistory from "./ProductHistory";
@@ -13,10 +14,24 @@ import Exchanging from "./Exchanging";
 import LoadingProducts from "./LoadingProducts";
 
 import { IconButton } from '@material-ui/core';
-import Moment from "moment";
-import "moment/locale/es";
+import WarningIcon from '@material-ui/icons/Warning';
+import ErrorIcon from '@material-ui/icons/Error';
+
+import { makeStyles } from '@material-ui/core/styles';
+import { yellow } from '@material-ui/core/colors';
 
 const ITEMS_PER_PAGE = 16;
+
+const useStyles = makeStyles((theme) => ({
+  warning: {
+    fontSize: '400%',
+    color: yellow[800]
+  },
+  error: {
+    fontSize: '400%',
+    color: '#d50000'
+  }
+}));
 
 const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHasError, exchangeIsLoading, exchange: {message} }) => {
   
@@ -25,7 +40,8 @@ const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHa
   let historyFiltered = useRef(null);
   const [productList, setProductList] = useState([]);
   const [historyList, setHistoryList] = useState([]);
-
+  const classes = useStyles();
+  
   
   useEffect(() => {
     
@@ -88,7 +104,8 @@ const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHa
     return (
       <article className="message is-warning">
         <div className="message-body">
-          No se encontraron productos con los criterios definidos
+          <WarningIcon className={classes.warning}/>
+          <h3>No se encontraron productos con los criterios definidos</h3>
         </div>
       </article>
     );
@@ -96,9 +113,16 @@ const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHa
 
   if (hasError) {
       return (
-        <div>
-            <h6>Ocurrió un error al buscar los productos</h6>
-        </div>
+        <article className="message is-error">
+          <div className="message-body">
+            <ErrorIcon className={classes.error}/>
+            {historyQuery ?
+              <h3>Ocurrió un error al obtener el historial</h3>
+            :
+              <h3>Ocurrió un error al buscar los productos</h3>
+            }
+          </div>
+        </article>
       );
   }
 
@@ -158,17 +182,29 @@ const ProductsList = ({ products, user, history, hasError, isLoading, exchangeHa
       <hr></hr>
       <div>
           {currentPage === 1 ? (
-              <div>
-                <IconButton aria-label="next">
-                  <IconNext />
-                </IconButton>
-              </div>
+              <>
+                {historyQuery ?
+                  historyList.length > 16 ?
+                      <IconButton aria-label="next">
+                        <IconNext />
+                      </IconButton>
+                    :
+                      ("")
+                  :
+                  productList.length > 16 ?
+                      <IconButton aria-label="next">
+                        <IconNext />
+                      </IconButton>
+                    :
+                      ("")
+                }
+              </>
             ) : (
-              <div>
+              <>
                 <IconButton aria-label="prev">
                   <IconPrev />
                 </IconButton>
-              </div>
+              </>
           )}
       </div>
     </section>

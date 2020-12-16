@@ -26,8 +26,7 @@ const useStyles = makeStyles((theme) => ({
       fontFamily: 'Lucida Console'
     },
     price: {
-      color: 'rgb(0, 160, 107)',
-      fontWeight: 'bold'
+      color: '#00c853'
     },
     expand: {
       transform: 'rotate(0deg)',

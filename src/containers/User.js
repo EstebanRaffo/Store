@@ -5,7 +5,8 @@ const mapStateToProps = (state, props) => {
   return {
     user: state.user,
     hasError: state.loadingUserError,
-    isLoading: state.loadingUserInProgress
+    isLoading: state.loadingUserInProgress,
+    addPointsHasError: state.addPointsError
   };
 };
 

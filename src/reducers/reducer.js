@@ -11,7 +11,9 @@ import {
   USER_LOADING_SUCCESS,
   HISTORY_LOADING_SUCCESS,
   ADD_POINTS_SUCCESS,
-  EXCHANGE_SUCCESS
+  EXCHANGE_SUCCESS,
+  ADD_POINTS_ERROR,
+  // ADD_POINTS_IN_PROGRESS
 } from "../actions/actions";
 
 
@@ -69,6 +71,24 @@ const loadingUserInProgress = (state = false, action) => {
       return state;
   }
 };
+
+const addPointsError = (state = false, action) => {
+  switch (action.type) {
+    case ADD_POINTS_ERROR:
+      return action.hasErrored;
+    default:
+      return state;
+  }
+};
+
+// const addPointsInProgress = (state = false, action) => {
+//   switch (action.type) {
+//     case ADD_POINTS_IN_PROGRESS:
+//       return action.isLoading;
+//     default:
+//       return state;
+//   }
+// };
 
 const products = (state = [], action) => {
   switch (action.type) {
@@ -135,4 +155,6 @@ export default combineReducers({
   loadingUserInProgress,
   history,
   points,
+  addPointsError
+  // addPointsInProgress
 });

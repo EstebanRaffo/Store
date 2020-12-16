@@ -49,18 +49,18 @@ const SuccessExchange = () => {
                 <Typography variant="h4" align="center"> 
                     <SuccessIcon />
                 </Typography>
+                <Typography variant="h6">
+                    Canje Exitoso ! 
+                </Typography>
+            </CardMedia>
+            <Divider variant="middle" />
+            <CardContent>
                 <Chip
                   className={classes.chip}
                   label="Canjear nuevamente" 
                   onClick={() => setCurrentExchangingId("")}
                   clickable 
                 />
-            </CardMedia>
-            <Divider variant="middle" />
-            <CardContent>
-                <Typography variant="h6">
-                    Canje Exitoso ! 
-                </Typography>
             </CardContent>
         </Card>
     )

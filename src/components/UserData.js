@@ -2,14 +2,19 @@ import React from "react";
 import NewChip from "./NewChip";
 import Coin from "./Coin";
 import LoadingUser from "./LoadingUser";
-import UserError from "./UserError";
+import ErrorUser from "./ErrorUser";
+import ErrorAddPoints from "./ErrorAddPoints";
 import {Avatar} from '@material-ui/core';
 
 
-const UserData = ({user, hasError, isLoading}) => {
+const UserData = ({user, hasError, isLoading, addPointsHasError}) => {
 
   if (hasError) {
-    return <UserError />
+    return <ErrorUser />
+  }
+
+  if(addPointsHasError){
+    return <ErrorAddPoints />
   }
 
   if (isLoading) {

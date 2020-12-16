@@ -1,17 +1,19 @@
 export const LOADING_ERROR = "LOADING_ERROR";
 export const LOADING_IN_PROGRESS = "LOADING_IN_PROGRESS";
-export const LOADING_EXCHANGE_ERROR = "LOADING_EXCHANGE_ERROR";
-export const LOADING_EXCHANGE_IN_PROGRESS = "LOADING_EXCHANGE_IN_PROGRESS";
 export const LOADING_USER_ERROR = "LOADING_USER_ERROR"; 
 export const LOADING_USER_IN_PROGRESS = "LOADING_USER_IN_PROGRESS";
+export const LOADING_EXCHANGE_ERROR = "LOADING_EXCHANGE_ERROR";
+export const LOADING_EXCHANGE_IN_PROGRESS = "LOADING_EXCHANGE_IN_PROGRESS";
+export const ADD_POINTS_ERROR = "ADD_POINTS_ERROR";
+export const ADD_POINTS_IN_PROGRESS = "ADD_POINTS_IN_PROGRESS";
 
 export const CLEAR_PRODUCTS = "CLEAR_PRODUCTS";
 
 export const LOADING_SUCCESS = "LOADING_SUCCESS";
 export const USER_LOADING_SUCCESS = "USER_LOADING_SUCCESS"
+export const EXCHANGE_SUCCESS = "EXCHANGE_SUCCESS";
 export const HISTORY_LOADING_SUCCESS = "HISTORY_LOADING_SUCCESS";
 export const ADD_POINTS_SUCCESS = "ADD_POINTS_SUCCESS";
-export const EXCHANGE_SUCCESS = "EXCHANGE_SUCCESS";
 
 
 export const headers = {
@@ -122,6 +124,16 @@ export const userLoadingSuccess = (user) => ({
 
 /******************************************************** Points *************************************************************/
 
+export const addPointsError = (bool) => ({
+  type: ADD_POINTS_ERROR,
+  hasErrored: bool
+});
+
+export const addPointsInProgress = (bool) => ({
+  type: ADD_POINTS_IN_PROGRESS,
+  isLoading: bool
+});
+
 export const addPoints = (points) => {
   const url = "https://coding-challenge-api.aerolab.co/user/points";
   const data = { amount: points }
@@ -131,8 +143,8 @@ export const addPoints = (points) => {
 export const postPoints = (url, data) => {
   return (dispatch) => {
 
-    dispatch(loadingError(false));
-    dispatch(loadingInProgress(true));
+    dispatch(addPointsError(false));
+    dispatch(addPointsInProgress(true));
 
     fetch(url, {
       method: 'POST',
@@ -145,7 +157,7 @@ export const postPoints = (url, data) => {
           throw Error(response.statusText);
         }
 
-        dispatch(loadingInProgress(false));
+        dispatch(addPointsInProgress(false));
 
         return response;
       })
@@ -154,10 +166,9 @@ export const postPoints = (url, data) => {
         dispatch(addPointsSuccess(newPoints));
         dispatch(getUser());
       })
-      .catch(() => dispatch(loadingError(true)));
+      .catch(() => dispatch(addPointsError(true)));
   };
 };
-
 
 export const addPointsSuccess = (points) => ({
   type: ADD_POINTS_SUCCESS,
@@ -178,7 +189,7 @@ export const loadingExchangeInProgress = (bool) => ({
 });
 
 export const exchange = (productId) => {
-  const url = "https://coding-challenge-api.aerolab.co/redee";
+  const url = "https://coding-challenge-api.aerolab.co/redeem";
   const data = {productId: productId}
   return postExchange(url, data);
 }
@@ -244,7 +255,7 @@ export const fetchHistory = (url) => {
       })
       .then((response) => response.json())
       .then((history) => {
-        const historyFiltered = history.slice(-32);
+        const historyFiltered = history.slice(-32); // últimos 32 productos canjeados
         dispatch(loadingHistorySuccess(historyFiltered));
         dispatch(getUser());
       })
